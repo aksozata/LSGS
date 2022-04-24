@@ -12,7 +12,7 @@ namespace LSGS
         public App()
         {
             InitializeComponent();
-
+            string trial = "deneme";
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
