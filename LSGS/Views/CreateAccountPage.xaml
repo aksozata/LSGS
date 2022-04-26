@@ -8,33 +8,33 @@
              Shell.NavBarIsVisible="False">
     
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                <Label Text="Name:"/>
-                <Entry Placeholder="" />
+        <StackLayout VerticalOptions="Center" Spacing="20" Padding="20,0,20,0">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Name:" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " />
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                <Label Text="Surname:" VerticalOptions="Center"/>
-                <Entry Placeholder="" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Surname:" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " />
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                <Label Text="METU ID: " VerticalOptions="Center"/>
-                <Entry Placeholder="" />
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="METU ID: " HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " />
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                <Label Text="E-mail Address:" VerticalOptions="Center"/>
-                <Entry Placeholder="" />
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="E-mail Address:" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " />
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                <Label Text="Password:" VerticalOptions="Center"/>
-                <Entry Placeholder="" />
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="Password:" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " IsPassword="True"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                <Label Text="Confirm Password:" VerticalOptions="Center"/>
-                <Entry Placeholder="" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Confirm Password:" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " IsPassword="True"/>
             </StackLayout>
 
-
+            <Button Text="Create Account" HorizontalOptions="Center"></Button>
 
             
             
