@@ -14,6 +14,6 @@ namespace LSGS.Models
         public string Name { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }
-        public int PublishYear { get; set; }
+        public string PublishYear { get; set; }
     }
 }

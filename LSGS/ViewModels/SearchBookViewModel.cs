@@ -31,15 +31,24 @@ namespace LSGS.ViewModels
             // open a connection asynchronously
             var connection = new MySqlConnection(builder.ConnectionString);
             connection.Open();
-
             // create a DB command and set the SQL statement with parameters
             var command = connection.CreateCommand();
-            command.CommandText = @"SELECT * FROM Book WHERE Serial_no = 2;";
-
+            command.CommandText =
+                $@"SELECT *
+                  FROM Book
+                  WHERE Title LIKE ('%{searchedBook.Name}%')
+                    AND
+                  Author LIKE ('%{searchedBook.Author}%')
+                    AND
+                  Year LIKE ('%{searchedBook.PublishYear}%')
+                    AND
+                  Publisher LIKE ('%{searchedBook.Publisher}%')
+                  ;";
             // execute the command and read the results
             var reader = await command.ExecuteReaderAsync();
             while (reader.Read())
             {
+                var Book_name = reader.GetString("Title");
                 var Serial_no = reader.GetInt32("Serial_no");
             }
 
