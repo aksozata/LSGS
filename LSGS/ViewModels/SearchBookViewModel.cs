@@ -48,7 +48,7 @@ namespace LSGS.ViewModels
                   ;";
             // execute the command and read the results
             var reader = await command.ExecuteReaderAsync();
-            connection.Close();
+            
             while (reader.Read())
             {
                 var Book_name = reader.GetString("Title");
@@ -59,6 +59,7 @@ namespace LSGS.ViewModels
                 var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString(), Serial_no.ToString());
                 search_result_list.Add(each_book);
             }
+            connection.Close();
             BookSearchResultsList = search_result_list;
             await Shell.Current.GoToAsync("//BookSearchResultsPage");
 
