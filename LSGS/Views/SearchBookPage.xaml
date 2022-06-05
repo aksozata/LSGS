@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LSGS.Views.SearchBookPage"
+             Shell.NavBarIsVisible="False">
+    
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" Spacing="20" Padding="20,0,20,0">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Author(s) Name:" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Book Name:" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="Publisher: " HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="Published Year:" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " />
+            </StackLayout>
+
+            <Button VerticalOptions="Center" Text="Search" Command="{Binding SearchBookCommand}"/>
+            
+            
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

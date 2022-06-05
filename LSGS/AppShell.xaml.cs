@@ -17,7 +17,21 @@ namespace LSGS
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            // The sender is the menuItem
+            MenuItem menuItem = sender as MenuItem;
+            switch (menuItem.Text)
+            {
+                case "Search Book":
+                    {
+                        await Current.GoToAsync("//SearchBookPage");
+                    }
+                    break;
+                case "Logout":
+                    {
+                        await Current.GoToAsync("//LoginPage");
+                    }
+                    break;
+            }
         }
     }
 }
