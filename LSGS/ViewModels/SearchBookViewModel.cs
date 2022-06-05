@@ -19,6 +19,7 @@ namespace LSGS.ViewModels
 
         private async void OnSearchClicked(object obj)
         {
+            List<Book> search_result_list = new List<Book>();
             // set these values correctly for your database server
             var builder = new MySqlConnectionStringBuilder
             {
@@ -49,13 +50,14 @@ namespace LSGS.ViewModels
             while (reader.Read())
             {
                 var Book_name = reader.GetString("Title");
-                var Serial_no = reader.GetInt32("Serial_no");
+                var Publisher = reader.GetString("Publisher");
+                var Author_name = reader.GetString("Author");
+                var Published_year = reader.GetInt32("Year");
+                var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString());
+                search_result_list.Add(each_book);
             }
+            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
 
-
-
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            //await Shell.Current.GoToAsync($"//{nameof(CreateAccountPage)}");
         }
     }
 }
