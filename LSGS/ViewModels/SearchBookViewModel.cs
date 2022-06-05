@@ -48,15 +48,18 @@ namespace LSGS.ViewModels
                   ;";
             // execute the command and read the results
             var reader = await command.ExecuteReaderAsync();
+            
             while (reader.Read())
             {
                 var Book_name = reader.GetString("Title");
                 var Publisher = reader.GetString("Publisher");
                 var Author_name = reader.GetString("Author");
                 var Published_year = reader.GetInt32("Year");
-                var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString());
+                var Serial_no = reader.GetInt32("Serial_no");
+                var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString(), Serial_no.ToString());
                 search_result_list.Add(each_book);
             }
+            connection.Close();
             BookSearchResultsList = search_result_list;
             await Shell.Current.GoToAsync("//BookSearchResultsPage");
 
