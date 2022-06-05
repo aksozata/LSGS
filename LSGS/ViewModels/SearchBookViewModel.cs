@@ -29,7 +29,7 @@ namespace LSGS.ViewModels
 
             // open a connection asynchronously
             var connection = new MySqlConnection(builder.ConnectionString);
-            await connection.OpenAsync();
+            connection.Open();
 
             // create a DB command and set the SQL statement with parameters
             var command = connection.CreateCommand();
@@ -39,8 +39,7 @@ namespace LSGS.ViewModels
             var reader = await command.ExecuteReaderAsync();
             while (reader.Read())
             {
-                var id = reader.GetInt32("Serial_no");
-                // ...
+                int a = 3;
             }
 
 
