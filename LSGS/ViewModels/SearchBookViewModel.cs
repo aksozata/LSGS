@@ -10,6 +10,7 @@ namespace LSGS.ViewModels
 {
     public class SearchBookViewModel : BaseViewModel
     {
+        public static List<Book> BookSearchResultsList = new List<Book>();
         public Command SearchBookCommand { get; }
         public Book searchedBook { get; set; } = new Book();
         public SearchBookViewModel()
@@ -56,7 +57,8 @@ namespace LSGS.ViewModels
                 var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString());
                 search_result_list.Add(each_book);
             }
-            await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            BookSearchResultsList = search_result_list;
+            await Shell.Current.GoToAsync("//BookSearchResultsPage");
 
         }
     }

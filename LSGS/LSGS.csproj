@@ -16,4 +16,10 @@
   <ItemGroup>
     <None Remove="MySqlConnector" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\BookSearchResultsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

@@ -17,6 +17,7 @@ namespace LSGS.Models
             Author = author;
             Publisher = publisher;
             PublishYear = publishYear;
+            ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Papio_anubis_%28Serengeti%2C_2009%29.jpg/200px-Papio_anubis_%28Serengeti%2C_2009%29.jpg";
         }
 
         public Book()
@@ -27,5 +28,6 @@ namespace LSGS.Models
         public string Author { get; set; }
         public string Publisher { get; set; }
         public string PublishYear { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

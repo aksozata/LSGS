@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LSGS.ViewModels;
+using LSGS.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,7 +16,6 @@ namespace LSGS.Views
     {
         public SearchBookPage()
         {
-
             InitializeComponent();
             this.BindingContext = new SearchBookViewModel();
         }
