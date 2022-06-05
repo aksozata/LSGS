@@ -29,5 +29,11 @@ namespace LSGS.Models
         public string Publisher { get; set; }
         public string PublishYear { get; set; }
         public string ImageUrl { get; set; }
+        public string SerialNo { get; set; }
+    }
+
+    public class Student
+    {
+
     }
 }

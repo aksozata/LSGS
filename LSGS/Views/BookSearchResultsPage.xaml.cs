@@ -20,6 +20,9 @@ namespace LSGS.Views
             BookList = LSGS.ViewModels.SearchBookViewModel.BookSearchResultsList;
             BindingContext = this;
         }
+        
+        // rate recommend comment reserve
+
 
         void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
