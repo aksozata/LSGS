@@ -103,6 +103,7 @@
         <ShellContent Route="CreateAccountPage" ContentTemplate="{DataTemplate local:CreateAccountPage}" />
         <ShellContent Route="SearchBookPage" ContentTemplate="{DataTemplate local:SearchBookPage}" />
         <ShellContent Route="BookSearchResultsPage" ContentTemplate="{DataTemplate local:BookSearchResultsPage}" />
+        <ShellContent Route="BookPage" ContentTemplate="{DataTemplate local:BookPage}" />
     </TabBar>
 
     <!-- Optional Templates 

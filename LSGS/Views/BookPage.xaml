@@ -3,10 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LSGS.Views.BookPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout >
+            <Image 
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                       Source="{Binding ImageUrl}"
+                       HeightRequest="60"
+                       WidthRequest="60"/>
+            <Label Text="{Binding Name}"
+                   HeightRequest="120"
+                   FontAttributes="Bold"/> 
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

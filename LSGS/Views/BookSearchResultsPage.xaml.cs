@@ -13,20 +13,23 @@ namespace LSGS.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BookSearchResultsPage : ContentPage
     {
+        public static string BookSerialNo;
         public IList<Book> BookList { get; set; }
         public BookSearchResultsPage()
         {
             InitializeComponent();
-            BookList = LSGS.ViewModels.SearchBookViewModel.BookSearchResultsList;
+            BookList = SearchBookViewModel.BookSearchResultsList;
             BindingContext = this;
         }
         
         // rate recommend comment reserve
 
 
-        void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Book selectedItem = e.CurrentSelection[0] as Book;
+            BookSerialNo = selectedItem.SerialNo;
+            await Shell.Current.GoToAsync("//BookPage");
         }
 
     }
