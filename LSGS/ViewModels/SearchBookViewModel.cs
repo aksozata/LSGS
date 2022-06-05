@@ -39,7 +39,7 @@ namespace LSGS.ViewModels
             var reader = await command.ExecuteReaderAsync();
             while (reader.Read())
             {
-                int a = 3;
+                var Serial_no = reader.GetInt32("Serial_no");
             }
 
 
