@@ -11,19 +11,19 @@
         <StackLayout VerticalOptions="Center" Spacing="20" Padding="20,0,20,0">
             <StackLayout Orientation="Horizontal">
                 <Label Text="Author(s) Name:" HorizontalOptions="FillAndExpand" FontSize="Large" />
-                <Entry Placeholder="                               " />
+                <Entry Placeholder="                               " Text="{Binding searchedBook.Author}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Book Name:" HorizontalOptions="FillAndExpand" FontSize="Large" />
-                <Entry Placeholder="                               " />
+                <Entry Placeholder="                               " Text="{Binding searchedBook.Name}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" >
                 <Label Text="Publisher: " HorizontalOptions="FillAndExpand" FontSize="Large" />
-                <Entry Placeholder="                               " />
+                <Entry Placeholder="                               " Text="{Binding searchedBook.Publisher}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" >
                 <Label Text="Published Year:" HorizontalOptions="FillAndExpand" FontSize="Large" />
-                <Entry Placeholder="                               " />
+                <Entry Placeholder="                               " Text="{Binding searchedBook.PublishYear}"/>
             </StackLayout>
 
             <Button VerticalOptions="Center" Text="Search" Command="{Binding SearchBookCommand}"/>

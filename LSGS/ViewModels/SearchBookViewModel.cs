@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using LSGS.Models;
 
 namespace LSGS.ViewModels
 {
     public class SearchBookViewModel : BaseViewModel
     {
         public Command SearchBookCommand { get; }
-
+        public Book searchedBook { get; set; } = new Book();
         public SearchBookViewModel()
         {
             SearchBookCommand = new Command(OnSearchClicked);
@@ -33,7 +34,7 @@ namespace LSGS.ViewModels
 
             // create a DB command and set the SQL statement with parameters
             var command = connection.CreateCommand();
-            command.CommandText = @"SELECT * FROM Book;";
+            command.CommandText = @"SELECT * FROM Book WHERE Serial_no = 2;";
 
             // execute the command and read the results
             var reader = await command.ExecuteReaderAsync();
