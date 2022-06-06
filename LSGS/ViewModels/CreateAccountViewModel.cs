@@ -8,17 +8,22 @@ namespace LSGS.ViewModels
 {
     public class CreateAccountViewModel : BaseViewModel
     {
-        public Command LoginCommand { get; }
+        public Command CancelCommand { get; }
 
         public CreateAccountViewModel()
         {
-            LoginCommand = new Command(OnLoginClicked);
+            CancelCommand = new Command(OnCancelClicked);
         }
 
         private async void OnLoginClicked(object obj)
         {
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+        }
+        private async void OnCancelClicked(object obj)
+        {
+            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }
 }
