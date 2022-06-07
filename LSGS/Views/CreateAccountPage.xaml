@@ -11,31 +11,31 @@
         <StackLayout VerticalOptions="Center" Spacing="20" Padding="20,0,20,0">
             <StackLayout Orientation="Horizontal">
                 <Label Text="Name:" HorizontalOptions="Start" FontSize="Large"/>
-                <Entry HorizontalOptions="FillAndExpand" />
+                <Entry HorizontalOptions="FillAndExpand" Text="{Binding profile.Name}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Surname:" HorizontalOptions="Start" FontSize="Large" />
-                <Entry HorizontalOptions="FillAndExpand" />
+                <Entry HorizontalOptions="FillAndExpand" Text="{Binding profile.Surname}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" >
                 <Label Text="METU ID: " HorizontalOptions="Start" FontSize="Large" />
-                <Entry HorizontalOptions="FillAndExpand" />
+                <Entry HorizontalOptions="FillAndExpand" Text="{Binding profile.METU_ID}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" >
                 <Label Text="E-mail Address:" HorizontalOptions="Start" FontSize="Large" />
-                <Entry HorizontalOptions="FillAndExpand" />
+                <Entry HorizontalOptions="FillAndExpand" Text="{Binding profile.Email}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" >
                 <Label Text="Password:" HorizontalOptions="Start" FontSize="Large" />
-                <Entry HorizontalOptions="FillAndExpand" IsPassword="True"/>
+                <Entry HorizontalOptions="FillAndExpand" IsPassword="True" Text="{Binding profile.Password}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Confirm Password:" HorizontalOptions="Start" FontSize="Large" />
-                <Entry HorizontalOptions="FillAndExpand" IsPassword="True"/>
+                <Entry HorizontalOptions="FillAndExpand" IsPassword="True" Text="{Binding passwordConfirm}"/>
             </StackLayout>
 
             <StackLayout  VerticalOptions="Center" Orientation="Horizontal" HorizontalOptions="Center">
-                <Button VerticalOptions="Center" Text="Register" Command="{Binding LoginCommand}"/>
+                <Button VerticalOptions="Center" Text="Register" Command="{Binding RegisterCommand}"/>
                 <Button VerticalOptions="Start" Text="Cancel" Command="{Binding CancelCommand}"/>
             </StackLayout>
 

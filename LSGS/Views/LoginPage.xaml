@@ -11,7 +11,7 @@
             <Image Source="METU_LOGO.png" VerticalOptions="Start" ScaleX="0.5" ScaleY="0.5" AnchorY="0.2"/>
             <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20,-100,20,0">
                 <Label Text="Welcome to LSGS!" HorizontalOptions="Center" FontSize="30"/>
-                <Label Text="Please enter login informtion" HorizontalOptions="Center" FontSize="25"/>
+                <Label Text="Please enter login information" HorizontalOptions="Center" FontSize="25"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Padding="0,30,0,0">
                     <Label Text="METU ID:" FontSize="25" FontAttributes="Bold"/>
                     <Entry x:Name="loginID" Placeholder=" " HorizontalOptions="FillAndExpand" Text="{Binding profile.METU_ID}"/>

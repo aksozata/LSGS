@@ -30,7 +30,7 @@ namespace LSGS.ViewModels
             }
             catch (Exception ex)
             {
-                App.Current.MainPage.DisplayAlert("Error", "Database Connetion Failure", "OK");
+                App.Current.MainPage.DisplayAlert("Error", "Database Connection Failure", "OK");
             }
         }
 
@@ -44,7 +44,7 @@ namespace LSGS.ViewModels
                     Globals.connection.Open();
                 } catch (Exception ex)
                 {
-                    App.Current.MainPage.DisplayAlert("Error", "Database Connetion Failure", "OK");
+                    App.Current.MainPage.DisplayAlert("Error", "Database Connection Failure", "OK");
                     return;
                 }
             }
