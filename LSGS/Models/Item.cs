@@ -9,6 +9,28 @@ namespace LSGS.Models
         public string Description { get; set; }
     }
 
+    public class Profile
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public int METU_ID { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string Description { get; set; }
+
+        public Profile() { }
+        public Profile(string Name, string Surname, int METU_ID, string Password, string Email, string Description)
+        {
+            this.Name = Name;
+            this.Surname = Surname;
+            this.METU_ID = METU_ID;
+            this.Password = Password;
+            this.Email = Email;
+            this.Description = Description;
+        }
+
+    }
+
     public class Book
     {
         public Book(string name, string author, string publisher, string publishYear, string serialNo)

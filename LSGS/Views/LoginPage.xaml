@@ -7,24 +7,24 @@
              x:Class="LSGS.Views.LoginPage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <Grid>
+        <StackLayout>
             <Image Source="METU_LOGO.png" VerticalOptions="Start" ScaleX="0.5" ScaleY="0.5" AnchorY="0.2"/>
-            <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20,50,20,0">
+            <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20,-100,20,0">
                 <Label Text="Welcome to LSGS!" HorizontalOptions="Center" FontSize="30"/>
                 <Label Text="Please enter login informtion" HorizontalOptions="Center" FontSize="25"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Padding="0,30,0,0">
                     <Label Text="METU ID:" FontSize="25" FontAttributes="Bold"/>
-                    <Entry HorizontalOptions="FillAndExpand" />
+                    <Entry x:Name="loginID" Placeholder=" " HorizontalOptions="FillAndExpand" Text="{Binding profile.METU_ID}"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     <Label Text="Password:" FontSize="25" FontAttributes="Bold"/>
-                    <Entry HorizontalOptions="FillAndExpand" IsPassword="True"/>
+                    <Entry x:Name="loginPassword" Placeholder=" " HorizontalOptions="FillAndExpand" IsPassword="True" Text="{Binding profile.Password}"/>
                 </StackLayout>
             </StackLayout>
-            <StackLayout Padding="80,400,80,0" VerticalOptions="Center" Orientation="Horizontal" HorizontalOptions="Center">
+            <StackLayout Padding="80,30,80,0" VerticalOptions="Center" Orientation="Horizontal" HorizontalOptions="Center">
                 <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
                 <Button VerticalOptions="Start" Text="Sign Up" Command="{Binding CreateAccountCommand}"/>
             </StackLayout>
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

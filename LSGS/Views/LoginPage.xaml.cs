@@ -16,6 +16,7 @@ namespace LSGS.Views
         {
             InitializeComponent();
             this.BindingContext = new LoginViewModel();
+            
         }
     }
 }
