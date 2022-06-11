@@ -79,18 +79,31 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    <FlyoutItem Title="About" Icon="icon_about.png">
-        <ShellContent Route="About" ContentTemplate="{DataTemplate local:AboutPage}" />
+    <FlyoutItem>
+        <ShellContent Title="About" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"/>
     </FlyoutItem>
+
+    <!--<MenuItem Text="About" x:Name="About" Icon="icon_about.png" Clicked="OnMenuItemClicked">
+    </MenuItem>-->
+    <MenuItem Text="Search Friend" Clicked="OnMenuItemClicked">
+    </MenuItem>
+    <MenuItem Text="Search Book" Clicked="OnMenuItemClicked">
+    </MenuItem>
+    <MenuItem Text="Report" Clicked="OnMenuItemClicked">
+    </MenuItem>
+
+    <!--<FlyoutItem>
+        <ShellContent Title="Search Friend" Route="Search Friend" ContentTemplate="{DataTemplate local:SearchFriendPage}" />
+    </FlyoutItem>
+    <FlyoutItem>
+        <ShellContent Title="Search Book" Route="Search Book" ContentTemplate="{DataTemplate local:SearchBookPage}" />
+    </FlyoutItem>-->
 
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
     </MenuItem>
-
-    <MenuItem Text="Search Book" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
-    </MenuItem>
-
+    
     <!--
         TabBar lets you define content that won't show up in a flyout menu. When this content is active
         the flyout menu won't be available. This is useful for creating areas of the application where 
@@ -101,7 +114,6 @@
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
         <ShellContent Route="CreateAccountPage" ContentTemplate="{DataTemplate local:CreateAccountPage}" />
-        <ShellContent Route="SearchBookPage" ContentTemplate="{DataTemplate local:SearchBookPage}" />
         <ShellContent Route="BookSearchResultsPage" ContentTemplate="{DataTemplate local:BookSearchResultsPage}" />
         <ShellContent Route="BookPage" ContentTemplate="{DataTemplate local:BookPage}" />
     </TabBar>

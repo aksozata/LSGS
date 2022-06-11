@@ -14,7 +14,8 @@ namespace LSGS
             InitializeComponent();
             string trial = "deneme";
             DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new LoginPage();
+            
         }
 
         protected override void OnStart()

@@ -51,12 +51,7 @@ namespace LSGS.ViewModels
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             var command = Globals.connection.CreateCommand();
             command.CommandText =
-                $@"SELECT *
-                  FROM User
-                  WHERE METU_ID LIKE ('%{profile.METU_ID}%')
-                    AND
-                  Password LIKE ('%{profile.Password}%')
-                  ;";
+                $"SELECT * FROM User WHERE METU_ID = '{profile.METU_ID}' AND Password = '{profile.Password}';";
             // execute the command and read the results
             var reader = await command.ExecuteReaderAsync();
 
@@ -70,7 +65,7 @@ namespace LSGS.ViewModels
                 var METU_ID = reader.GetInt32("METU_ID");
                 Globals.profile = new Profile(Name, Surname, METU_ID, Password, Email, Description);
                 Globals.connection.Close();
-                //await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");                                                      //NAVIGATE TO PROFILE PAGE
+                App.Current.MainPage = new AppShell();                                            //NAVIGATE TO PROFILE PAGE
             }
             else 
             {
