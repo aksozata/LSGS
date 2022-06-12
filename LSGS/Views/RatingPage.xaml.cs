@@ -18,5 +18,16 @@ namespace LSGS.Views
             InitializeComponent();
             BindingContext = ratedBook;
         }
+
+        private void GoBack_Button_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Post_Button_Clicked(object sender, EventArgs e)
+        {
+            string rating = bookRating.Items[bookRating.SelectedIndex];
+            string comment = bookComment.Text;
+        }
     }
 }
