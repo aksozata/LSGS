@@ -55,6 +55,31 @@ namespace LSGS.Models
         public string SerialNo { get; set; }
     }
 
+    public class Comment
+    {
+        public Comment(string bookID, string userID, string userName, string userComment, string rating)
+        {
+            BookID = bookID;
+            UserID = userID;
+            UserName = userName;
+            UserComment = userComment;
+            Rating = rating;
+        }
+        public Comment(string bookID, string userID, string userComment, string rating)
+        {
+            BookID = bookID;
+            UserID = userID;
+            UserComment = userComment;
+            Rating = rating;
+        }
+
+        public string BookID{ get; set; }
+        public string UserID{ get; set; }
+        public string UserName { get; set; }
+        public string UserComment { get; set; }
+        public string Rating { get; set; }
+    }
+
     public class Student
     {
 
