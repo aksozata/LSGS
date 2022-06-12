@@ -45,7 +45,8 @@ namespace LSGS.Views
 
             // TO-DO            --- Book_ID	User_ID	User_Comment	Rating
             command.CommandText = "insert into Comment(Book_ID,User_ID,User_Comment,Rating)" +
-                "values('" + ratedBook.SerialNo + "','" + Globals.profile.METU_ID + "','" + comment + "','" + Int32.Parse(rating) + "');";
+                "values('" + ratedBook.SerialNo + "','" + Globals.profile.METU_ID + "','" + comment + "','" + Int32.Parse(rating) + "')" +
+                " " + "ON DUPLICATE KEY UPDATE User_Comment='" + comment + "'," + "Rating=" + Int32.Parse(rating) + ";";
             // execute the command and read the results
             var reader = await command.ExecuteReaderAsync();
             while (reader.Read())
