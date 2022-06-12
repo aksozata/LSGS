@@ -17,7 +17,7 @@ namespace LSGS.Views
         public SearchBookPage()
         {
             InitializeComponent();
-            this.BindingContext = new SearchBookViewModel();
+            this.BindingContext = new SearchBookViewModel(Navigation);
         }
     }
 }

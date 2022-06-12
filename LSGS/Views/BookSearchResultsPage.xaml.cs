@@ -29,7 +29,8 @@ namespace LSGS.Views
         {
             Book selectedItem = e.CurrentSelection[0] as Book;
             BookSerialNo = selectedItem.SerialNo;
-            await Shell.Current.GoToAsync("//BookPage");
+            //await Shell.Current.GoToAsync("//BookPage");
+            await Navigation.PushAsync(new BookPage());
         }
 
     }

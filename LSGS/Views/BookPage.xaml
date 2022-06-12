@@ -1,23 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LSGS.Views.BookPage">
+             x:Class="LSGS.Views.BookPage"
+             Title="METU LSGS">
     <ContentPage.Content>
-        <!-- Our main structure -->
-        <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*" Padding="{x:OnPlatform Android='10,10,10,10'}">
-            <Image Grid.Column="2" Grid.Row="0" Source="{Binding ImageUrl}"
+        <ScrollView Orientation="Vertical">
+            <Grid x:Name="mainGrid" ColumnDefinitions="*,*,*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*" Padding="{x:OnPlatform Android='10,10,10,10'}">
+                <Image Grid.Column="2" Grid.Row="0" Source="{Binding ImageUrl}"
                    Grid.ColumnSpan="2" Grid.RowSpan="4"  WidthRequest="240" HeightRequest="240"/>
-            <Label Text="Title: " FontAttributes="Bold" Grid.Row="0" Grid.Column="0" FontSize="16" HeightRequest="40"/>
-            <Label Text="{Binding Name}" Grid.Row="0" Grid.Column="1" FontSize="14" HeightRequest="40"/>
-            <Label Text="Author: " FontAttributes="Bold" Grid.Row="1" Grid.Column="0" FontSize="16" HeightRequest="40"/>
-            <Label Text="{Binding Author}" Grid.Row="1" Grid.Column="1" FontSize="14" HeightRequest="40"/>
-            <Label Text="Publisher: " FontAttributes="Bold" Grid.Row="2" Grid.Column="0" FontSize="16" HeightRequest="40"/>
-            <Label Text="{Binding Publisher}" Grid.Row="2" Grid.Column="1" FontSize="14" HeightRequest="40"/>
-            <Label Text="Publish Year: " FontAttributes="Bold" Grid.Row="3" Grid.Column="0" FontSize="16" HeightRequest="40"/>
-            <Label Text="{Binding PublishYear}" Grid.Row="3" Grid.Column="1" FontSize="14" HeightRequest="40"/>
-            <Button Text="Rate" FontAttributes="Bold" FontSize="16" BackgroundColor="CadetBlue" Grid.Column="0" Grid.Row="4" Clicked="Rate_Button_Clicked"/>
-            <Button Text= "Recommend" FontAttributes="Bold" FontSize="16" BackgroundColor="DeepSkyBlue" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Clicked="Recommend_Button_Clicked"/>
-            <Button Text= "Reserve" FontAttributes="Bold" FontSize="16" BackgroundColor="Green" Grid.Column="3" Grid.Row="4" Clicked="Reserve_Button_Clicked"/>
-        </Grid>
+                <Label Text="Title: " FontAttributes="Bold" Grid.Row="0" Grid.Column="0" FontSize="16" HeightRequest="40"/>
+                <Label Text="{Binding Name}" Grid.Row="0" Grid.Column="1" FontSize="14" HeightRequest="40"/>
+                <Label Text="Author: " FontAttributes="Bold" Grid.Row="1" Grid.Column="0" FontSize="16" HeightRequest="40"/>
+                <Label Text="{Binding Author}" Grid.Row="1" Grid.Column="1" FontSize="14" HeightRequest="40"/>
+                <Label Text="Publisher: " FontAttributes="Bold" Grid.Row="2" Grid.Column="0" FontSize="16" HeightRequest="40"/>
+                <Label Text="{Binding Publisher}" Grid.Row="2" Grid.Column="1" FontSize="14" HeightRequest="40"/>
+                <Label Text="Publish Year: " FontAttributes="Bold" Grid.Row="3" Grid.Column="0" FontSize="16" HeightRequest="40"/>
+                <Label Text="{Binding PublishYear}" Grid.Row="3" Grid.Column="1" FontSize="14" HeightRequest="40"/>
+                <Button Text="Rate" FontAttributes="Bold" FontSize="16" BackgroundColor="CadetBlue" Grid.Column="0" Grid.Row="4" Clicked="Rate_Button_Clicked"/>
+                <Button Text= "Recommend" FontAttributes="Bold" FontSize="16" BackgroundColor="DeepSkyBlue" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Clicked="Recommend_Button_Clicked"/>
+                <Button Text= "Reserve" FontAttributes="Bold" FontSize="16" BackgroundColor="Green" Grid.Column="3" Grid.Row="4" Clicked="Reserve_Button_Clicked"/>
+                <Label Text="Comments" FontAttributes="Bold"  FontSize="16" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" />
+                <CollectionView x:Name="comments" ItemsSource="{Binding CommentList}" SelectionMode="Single" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="6" VerticalOptions="FillAndExpand">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" RowDefinitions="Auto, *" ColumnDefinitions="Auto, *">
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding UserName}" FontAttributes="Bold" />
+                                <Label Grid.Row="0" Grid.Column="3" Text="{Binding Rating}" HorizontalOptions="End" />
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding UserComment}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

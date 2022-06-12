@@ -13,9 +13,11 @@ namespace LSGS.ViewModels
         public static List<Book> BookSearchResultsList = new List<Book>();
         public Command SearchBookCommand { get; }
         public Book searchedBook { get; set; } = new Book();
-        public SearchBookViewModel()
+        public INavigation Navigation;
+        public SearchBookViewModel(INavigation navigation)
         {
             SearchBookCommand = new Command(OnSearchClicked);
+            Navigation = navigation;
         }
 
         private async void OnSearchClicked(object obj)
@@ -61,7 +63,8 @@ namespace LSGS.ViewModels
             }
             connection.Close();
             BookSearchResultsList = search_result_list;
-            await Shell.Current.GoToAsync("//BookSearchResultsPage");
+            //await Shell.Current.GoToAsync("//BookSearchResultsPage");
+            await Navigation.PushAsync(new BookSearchResultsPage());
 
         }
     }

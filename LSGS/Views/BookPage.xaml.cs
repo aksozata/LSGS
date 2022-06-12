@@ -7,6 +7,7 @@ using LSGS.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MySqlConnector;
+using System.ComponentModel;
 
 namespace LSGS.Views
 {
@@ -14,6 +15,9 @@ namespace LSGS.Views
     public partial class BookPage : ContentPage
     {
         public Book BookInformation = new Book();
+        public List<Comment> CommentList = new List<Comment>();
+        public BindingClass bindingModel;
+
         public BookPage()
         {
             BookInformation = ViewModels.SearchBookViewModel.BookSearchResultsList.Find(book => book.SerialNo == BookSearchResultsPage.BookSerialNo);
@@ -47,11 +51,13 @@ namespace LSGS.Views
                 var rating = reader.GetInt32("Rating");
                 var first_name = reader.GetString("First_Name");
                 var surname = reader.GetString("Surname");
-                var each_book = new Comment(BookInformation.SerialNo, Globals.profile.METU_ID.ToString(), first_name+" "+surname , comment, (rating).ToString());
+                var each_book = new Comment(BookInformation.SerialNo, Globals.profile.METU_ID.ToString(), first_name+" "+surname , comment, rating.ToString()+"/5");
                 comment_result_list.Add(each_book);
             }
             connection.Close();
-            BindingContext = this.BookInformation;
+            CommentList = comment_result_list;
+            bindingModel = new BindingClass(BookInformation.Name, BookInformation.Author, BookInformation.Publisher, BookInformation.PublishYear, BookInformation.ImageUrl, BookInformation.SerialNo, CommentList);
+            BindingContext = bindingModel;
         }
 
         private async void Rate_Button_Clicked(object sender, EventArgs e)
@@ -69,6 +75,28 @@ namespace LSGS.Views
         private void Reserve_Button_Clicked(object sender, EventArgs e)
         {
 
+        }
+    }
+
+    public class BindingClass
+    {
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public string PublishYear { get; set; }
+        public string ImageUrl { get; set; }
+        public string SerialNo { get; set; }
+        public List<Comment> CommentList { get; set; }
+
+        public BindingClass(string name, string author, string publisher, string publishYear, string imageUrl, string serialNo, List<Comment> commentList)
+        {
+            Name = name;
+            Author = author;
+            Publisher = publisher;
+            PublishYear = publishYear;
+            ImageUrl = imageUrl;
+            SerialNo = serialNo;
+            CommentList = commentList;
         }
     }
 }

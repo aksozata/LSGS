@@ -39,20 +39,29 @@ namespace LSGS.Views
 
             // open a connection asynchronously
             var connection = new MySqlConnection(builder.ConnectionString);
-            connection.Open();
-            // create a DB command and set the SQL statement with parameters
-            var command = connection.CreateCommand();
-
-            // TO-DO            --- Book_ID	User_ID	User_Comment	Rating
-            command.CommandText = "insert into Comment(Book_ID,User_ID,User_Comment,Rating)" +
-                "values('" + ratedBook.SerialNo + "','" + Globals.profile.METU_ID + "','" + comment + "','" + Int32.Parse(rating) + "')" +
-                " " + "ON DUPLICATE KEY UPDATE User_Comment='" + comment + "'," + "Rating=" + Int32.Parse(rating) + ";";
-            // execute the command and read the results
-            var reader = await command.ExecuteReaderAsync();
-            while (reader.Read())
+            try
             {
+                connection.Open();
+                // create a DB command and set the SQL statement with parameters
+                var command = connection.CreateCommand();
+
+                // TO-DO            --- Book_ID	User_ID	User_Comment	Rating
+                command.CommandText = "insert into Comment(Book_ID,User_ID,User_Comment,Rating)" +
+                    "values('" + ratedBook.SerialNo + "','" + Globals.profile.METU_ID + "','" + comment + "','" + Int32.Parse(rating) + "')" +
+                    " " + "ON DUPLICATE KEY UPDATE User_Comment='" + comment + "'," + "Rating=" + Int32.Parse(rating) + ";";
+                // execute the command and read the results
+                await command.ExecuteReaderAsync();
             }
-            connection.Close();
+            catch
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Error posting the review!", "OK");
+            }
+            finally
+            {
+                connection.Close();            
+            }
+            App.Current.MainPage.DisplayAlert("Congratulations", "Review is posted!", "OK");
+            await Navigation.PushAsync(new BookPage());
         }
     }
 }
