@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LSGS.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MySqlConnector;
 
 namespace LSGS.Views
 {
@@ -24,10 +25,34 @@ namespace LSGS.Views
             await Navigation.PopAsync();
         }
 
-        private void Post_Button_Clicked(object sender, EventArgs e)
+        async private void Post_Button_Clicked(object sender, EventArgs e)
         {
             string rating = bookRating.Items[bookRating.SelectedIndex];
             string comment = bookComment.Text;
+            var builder = new MySqlConnectionStringBuilder
+            {
+                Server = "db4free.net",
+                UserID = "is502grp3",
+                Password = "metu2022is502",
+                Database = "lsgsg3",
+            };
+
+            // open a connection asynchronously
+            var connection = new MySqlConnection(builder.ConnectionString);
+            connection.Open();
+            // create a DB command and set the SQL statement with parameters
+            var command = connection.CreateCommand();
+
+            // TO-DO            --- Book_ID	User_ID	User_Comment	Rating
+            command.CommandText = "insert into Comment(Book_ID,User_ID,User_Comment,Rating)" +
+                "values('" + ratedBook.SerialNo + "','" + Globals.profile.METU_ID + "','" + comment + "','" + Int32.Parse(rating) + "')" +
+                " " + "ON DUPLICATE KEY UPDATE User_Comment='" + comment + "'," + "Rating=" + Int32.Parse(rating) + ";";
+            // execute the command and read the results
+            var reader = await command.ExecuteReaderAsync();
+            while (reader.Read())
+            {
+            }
+            connection.Close();
         }
     }
 }
