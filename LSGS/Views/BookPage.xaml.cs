@@ -23,7 +23,8 @@ namespace LSGS.Views
         private async void Rate_Button_Clicked(object sender, EventArgs e)
         {
             RatingPage.ratedBook = BookInformation;
-            await Shell.Current.GoToAsync("//RatingPage");
+            await Navigation.PushAsync(new RatingPage());
+            //await Shell.Current.GoToAsync("//RatingPage");
         }
 
         private void Recommend_Button_Clicked(object sender, EventArgs e)

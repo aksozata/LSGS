@@ -19,9 +19,9 @@ namespace LSGS.Views
             BindingContext = ratedBook;
         }
 
-        private void GoBack_Button_Clicked(object sender, EventArgs e)
+        async private void GoBack_Button_Clicked(object sender, EventArgs e)
         {
-
+            await Navigation.PopAsync();
         }
 
         private void Post_Button_Clicked(object sender, EventArgs e)
