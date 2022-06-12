@@ -19,5 +19,20 @@ namespace LSGS.Views
             InitializeComponent();
             BindingContext = this.BookInformation;
         }
+
+        private void Rate_Button_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Recommend_Button_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Reserve_Button_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }
