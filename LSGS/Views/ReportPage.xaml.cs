@@ -13,7 +13,6 @@ namespace LSGS.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ReportPage : ContentPage
     {
-        public Command LoginCommand { get; }
 
         public ReportPage()
         {

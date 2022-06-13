@@ -18,7 +18,7 @@
                 <Entry HorizontalOptions="FillAndExpand" Text="{Binding profile.Surname}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" >
-                <Label Text="METU ID: " HorizontalOptions="Start" FontSize="Large" />
+                <Label Text="METU ID:" HorizontalOptions="Start" FontSize="Large" />
                 <Entry HorizontalOptions="FillAndExpand" Text="{Binding profile.METU_ID}"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal" >

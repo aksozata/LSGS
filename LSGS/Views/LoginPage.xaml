@@ -14,7 +14,7 @@
                 <Label Text="Please enter login information" HorizontalOptions="Center" FontSize="25"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand"  Padding="0,30,0,0">
                     <Label Text="METU ID:" FontSize="25" FontAttributes="Bold"/>
-                    <Entry x:Name="loginID" Placeholder=" " HorizontalOptions="FillAndExpand" Text="{Binding profile.METU_ID}"/>
+                    <Entry x:Name="loginID" Placeholder="" HorizontalOptions="FillAndExpand" Text="{Binding profile.METU_ID}"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                     <Label Text="Password:" FontSize="25" FontAttributes="Bold"/>

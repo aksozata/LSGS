@@ -17,6 +17,8 @@ namespace LSGS.Views
         public Command AddCommand { get; }
         public Command RemoveCommand { get; }
         public IList<Profile> SearchList { get; set; }
+        public CollectionView lastItem = null;
+        public Color color = Color.Default;
         public FriendSearchResultsPage()
         {
             InitializeComponent();
@@ -31,7 +33,18 @@ namespace LSGS.Views
 
         async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lastItem == null)
+            {
+                lastItem = (CollectionView)sender;
+                color = lastItem.BackgroundColor;
+            }
+            else
+            {
+                lastItem.BackgroundColor = color;
+                lastItem = (CollectionView)sender;
+            }
             Profile selectedItem = e.CurrentSelection[0] as Profile;
+            ((CollectionView)sender).BackgroundColor = Color.LightBlue;
             METU_ID = selectedItem.METU_ID;
         }
 
