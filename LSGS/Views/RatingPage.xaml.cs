@@ -27,6 +27,8 @@ namespace LSGS.Views
 
         async private void Post_Button_Clicked(object sender, EventArgs e)
         {
+            if (bookRating.SelectedIndex == -1)
+                return;
             string rating = bookRating.Items[bookRating.SelectedIndex];
             string comment = bookComment.Text;
             var builder = new MySqlConnectionStringBuilder

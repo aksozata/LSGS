@@ -65,6 +65,26 @@ namespace LSGS.ViewModels
                 var METU_ID = reader.GetInt32("METU_ID");
                 Globals.profile = new Profile(Name, Surname, METU_ID, Password, Email, Description);
                 Globals.connection.Close();
+
+                Globals.connection.Open();
+                // Get Reserved book list
+                command.CommandText = $"SELECT * FROM Reserve WHERE User_ID = '{profile.METU_ID}';";
+                var reader_ = await command.ExecuteReaderAsync();
+                if(reader_.Read())
+                {
+                   Globals.profile.ReservedBookList.Add(reader_.GetInt32("Book_ID").ToString());
+                }
+                Globals.connection.Close();
+
+                // Get Reserved book list
+                Globals.connection.Open();
+                command.CommandText = $"SELECT * FROM Lend WHERE METU_ID = '{profile.METU_ID}';";
+                var reader__ = await command.ExecuteReaderAsync();
+                if(reader__.Read())
+                {
+                    Globals.profile.LentBookList.Add(reader__.GetInt32("Book_ID").ToString());
+                }
+                Globals.connection.Close();
                 App.Current.MainPage = new AppShell();                                            //NAVIGATE TO PROFILE PAGE
             }
             else 
@@ -72,6 +92,7 @@ namespace LSGS.ViewModels
                 App.Current.MainPage.DisplayAlert("Error", "No such user exists!", "OK");
                 Globals.connection.Close();
             }
+
             
         }
         private async void OnCreateAccountClicked(object obj)
