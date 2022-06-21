@@ -85,7 +85,9 @@ namespace LSGS.ViewModels
                     Globals.profile.LentBookList.Add(reader__.GetInt32("Book_ID").ToString());
                 }
                 Globals.connection.Close();
-                App.Current.MainPage = new AppShell();                                            //NAVIGATE TO PROFILE PAGE
+                App.Current.MainPage = new AppShell();
+                //NAVIGATE TO PROFILE PAGE
+                //await Shell.Current.GoToAsync("//ProfilePage");
             }
             else 
             {

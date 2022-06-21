@@ -80,7 +80,7 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem>
-        <ShellContent Title="About" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}"/>
+        <ShellContent Title="Profile" Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}"/>
     </FlyoutItem>
 
     <!--<MenuItem Text="About" x:Name="About" Icon="icon_about.png" Clicked="OnMenuItemClicked">
@@ -117,6 +117,7 @@
         <ShellContent Route="BookSearchResultsPage" ContentTemplate="{DataTemplate local:BookSearchResultsPage}" />
         <ShellContent Route="BookPage" ContentTemplate="{DataTemplate local:BookPage}" />
         <ShellContent Route="RatingPage" ContentTemplate="{DataTemplate local:RatingPage}" />
+        <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
     </TabBar>
 
     <!-- Optional Templates 
