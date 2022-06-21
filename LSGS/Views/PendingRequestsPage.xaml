@@ -10,12 +10,25 @@
                 SelectionChanged="OnSelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid BackgroundColor="White">
-                                <BoxView BackgroundColor="Red" />
-                                <Grid BackgroundColor="White"  Margin="5"
+                        <Grid >
+                            <Grid Margin="5"
                                 RowDefinitions="Auto, *"
                                 ColumnDefinitions="Auto, *">
-                                    <Label Grid.Row="1"
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightBlue" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Label Grid.Row="1"
                        Grid.Column="1"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />
