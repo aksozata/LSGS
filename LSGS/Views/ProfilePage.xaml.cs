@@ -33,5 +33,10 @@ namespace LSGS.Views
         {
 
         }
+
+        private async void PendingRequests_Button_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PendingRequestsPage());
+        }
     }
 }
