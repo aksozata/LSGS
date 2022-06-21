@@ -33,23 +33,17 @@ namespace LSGS.Views
 
         async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lastItem == null)
-            {
-                lastItem = (CollectionView)sender;
-                color = lastItem.BackgroundColor;
-            }
-            else
-            {
-                lastItem.BackgroundColor = color;
-                lastItem = (CollectionView)sender;
-            }
             Profile selectedItem = e.CurrentSelection[0] as Profile;
-            ((CollectionView)sender).BackgroundColor = Color.LightBlue;
-            METU_ID = selectedItem.METU_ID;
+            METU_ID = (int)selectedItem.METU_ID;
         }
 
         private async void AddClicked(object obj)
         {
+            if (METU_ID == Globals.profile.METU_ID)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "You can't add yourself as friend!", "OK");
+                return;
+            }
             if (Globals.connection.State != System.Data.ConnectionState.Open)
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters

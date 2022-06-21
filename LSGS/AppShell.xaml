@@ -91,6 +91,8 @@
     </MenuItem>
     <MenuItem Text="Report" Clicked="OnMenuItemClicked">
     </MenuItem>
+    <MenuItem Text="Pending Request" Clicked="OnMenuItemClicked">
+    </MenuItem>
 
     <!--<FlyoutItem>
         <ShellContent Title="Search Friend" Route="Search Friend" ContentTemplate="{DataTemplate local:SearchFriendPage}" />

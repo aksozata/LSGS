@@ -13,12 +13,14 @@ namespace LSGS.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public int METU_ID { get; set; }
+        public int? METU_ID { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
 
-        public Profile() { }
+        public Profile() {
+            this.METU_ID = null;
+        }
         public Profile(string Name, string Surname, int METU_ID, string Password, string Email, string Description)
         {
             this.Name = Name;

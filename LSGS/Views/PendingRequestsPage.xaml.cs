@@ -16,14 +16,15 @@ namespace LSGS.Views
         public static int METU_ID;
         public Command AddCommand { get; }
         public Command DeclineCommand { get; }
-        public IList<Profile> finalList { get; set; }
-        List<Profile> pendingRequestsList;
+        public IList<Profile> FinalList { get; set; }
+        public static List<Profile> pendingRequestsList = new List<Profile>();
         public PendingRequestsPage()
         {
             InitializeComponent();
             
             AddCommand = new Command(AddClicked);
-            DeclineCommand = new Command(DeclineClicked);
+            DeclineCommand = new Command(DeclineClicked);           
+            getRequests();
             BindingContext = this;
         }
 
@@ -31,12 +32,12 @@ namespace LSGS.Views
 
         public async void getRequests()
         {
-            pendingRequestsList = new List<Profile>();
+            List<Profile> tempList = new List<Profile>();
             if (Globals.connection.State != System.Data.ConnectionState.Open)
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters
             var command = Globals.connection.CreateCommand();
-            command.CommandText = $@"SELECT * FROM Friends WHERE 'Friend' = '{Globals.profile.METU_ID}' AND 'isAccepted' = 1";           
+            command.CommandText = $@"SELECT * FROM Friends INNER JOIN User ON Friends.User = User.METU_ID WHERE Friends.Friend = '{Globals.profile.METU_ID}' AND Friends.isAccepted = 0;";           
 
             // execute the command and read the results
             var reader = await command.ExecuteReaderAsync();
@@ -48,17 +49,19 @@ namespace LSGS.Views
                 var METU_ID = reader.GetInt32("METU_ID");
                 var Email = reader.GetString("Email");
                 var Description = reader.GetString("Personal_Description");
-                var each_request = new Profile(Name, Surname, METU_ID, null, Email, Description);
-                pendingRequestsList.Add(each_request);
+                var each_request = new Profile(Name, Surname, METU_ID, "-1", Email, Description);
+                tempList.Add(each_request);
             }
-            finalList = pendingRequestsList;
+            pendingRequestsList = tempList;
+            FinalList = pendingRequestsList;
+            friendCollection.ItemsSource = FinalList;
             Globals.connection.Close();
 
         }
         async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Profile selectedItem = e.CurrentSelection[0] as Profile;
-            METU_ID = selectedItem.METU_ID;
+            METU_ID = (int)selectedItem.METU_ID;
         }
 
         private async void AddClicked(object obj)
@@ -69,11 +72,12 @@ namespace LSGS.Views
             var command = Globals.connection.CreateCommand();            
             command.CommandText =
                     $@"UPDATE Friends
-                    SET 'isAccepted' = 1 
-                    WHERE 'User' = '{METU_ID}' AND 'Friend' = '{Globals.profile.METU_ID}';";
+                    SET isAccepted = '1' 
+                    WHERE User = '{METU_ID}' AND Friend = '{Globals.profile.METU_ID}';";
                 var insert = await command.ExecuteNonQueryAsync();
                 Globals.connection.Close();
                 App.Current.MainPage.DisplayAlert("Success", "Friend request accepted!", "OK");
+            await Shell.Current.GoToAsync("SearchFriendPage");
         }
         private async void DeclineClicked(object obj)
         {
@@ -82,10 +86,11 @@ namespace LSGS.Views
             // create a DB command and set the SQL statement with parameters
             var command = Globals.connection.CreateCommand();         
                 command.CommandText =
-                    $@"DELETE FROM Friend (`User`, `Friend`) 
-                  VALUES('{METU_ID}', '{Globals.profile.METU_ID}');";
+                    $@"DELETE FROM Friends WHERE User = '{METU_ID}' AND Friend = '{Globals.profile.METU_ID}';";
                 var insert = await command.ExecuteNonQueryAsync();
                 Globals.connection.Close();
+            App.Current.MainPage.DisplayAlert("Success", "Friend request declined!", "OK");
+            await Shell.Current.GoToAsync("SearchFriendPage");
         }
     }
 }

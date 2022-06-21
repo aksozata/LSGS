@@ -15,6 +15,9 @@ namespace LSGS
             Routing.RegisterRoute(nameof(SearchBookPage), typeof(SearchBookPage));
             Routing.RegisterRoute(nameof(FriendSearchResultsPage), typeof(FriendSearchResultsPage));
             Routing.RegisterRoute(nameof(ReportPage), typeof(ReportPage));
+            Routing.RegisterRoute(nameof(PendingRequestsPage), typeof(PendingRequestsPage));
+
+
         }
 
         public async void OnMenuItemClicked(object sender, EventArgs e)
@@ -50,6 +53,12 @@ namespace LSGS
                 case "Report":
                     {
                         await Current.GoToAsync("ReportPage");
+                        Shell.Current.FlyoutIsPresented = false;
+                    }
+                    break;
+                case "Pending Request":
+                    {
+                        await Current.GoToAsync("PendingRequestsPage");
                         Shell.Current.FlyoutIsPresented = false;
                     }
                     break;

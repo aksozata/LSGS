@@ -43,7 +43,7 @@ namespace LSGS.ViewModels
                 command.CommandText += $"Surname LIKE('%{searchedFriend.Surname}%')";
                 andChecker = true;
             }
-            if(searchedFriend.Surname != null)
+            if(searchedFriend.METU_ID != null && searchedFriend.METU_ID != -1)
             {
                 if (andChecker)
                 {
@@ -52,7 +52,7 @@ namespace LSGS.ViewModels
                 command.CommandText += $"METU_ID LIKE ('%{searchedFriend.METU_ID}%')";
                 andChecker = true;
             }
-            if (searchedFriend.Surname != null)
+            if (searchedFriend.Email != null)
             {
                 if (andChecker)
                 {

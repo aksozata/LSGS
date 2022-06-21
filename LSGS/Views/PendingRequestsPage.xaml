@@ -5,43 +5,43 @@
              Title="Pending Requests">
     <ContentPage.Content>
         <StackLayout>
-            <CollectionView ItemsSource="{Binding finalList}"
+            <CollectionView x:Name="friendCollection"
                 SelectionMode="Single"
                 SelectionChanged="OnSelectionChanged">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid BackgroundColor="White">
-                            <BoxView BackgroundColor="Red" />
-                            <Grid BackgroundColor="White"  Margin="5"
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid BackgroundColor="White">
+                                <BoxView BackgroundColor="Red" />
+                                <Grid BackgroundColor="White"  Margin="5"
                                 RowDefinitions="Auto, *"
                                 ColumnDefinitions="Auto, *">
-                                <Label Grid.Row="1"
+                                    <Label Grid.Row="1"
                        Grid.Column="1"
                        Text="{Binding Name}"
                        FontAttributes="Bold" />
-                                <Label Grid.Row="2"
+                                    <Label Grid.Row="2"
                        Grid.Column="1"
                        Text="{Binding Surname}"
                        VerticalOptions="End" 
                        FontAttributes="Bold"/>
-                                <Label Grid.Row="3"
+                                    <Label Grid.Row="3"
                        Grid.Column="1"
                        Text="{Binding METU_ID}"
                        VerticalOptions="End" />
-                                <Label Grid.Row="4"
+                                    <Label Grid.Row="4"
                        Grid.Column="1"
                        Text="{Binding Email}"
                        VerticalOptions="End" />
-                                <Label Grid.Row="5"
+                                    <Label Grid.Row="5"
                        Grid.Column="1"
                        Text="{Binding Description}"
                        VerticalOptions="End" />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="20">
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="20">
                 <Button Text="Accept" Command="{Binding AddCommand}"/>
                 <Button Text="Decline" Command="{Binding DeclineCommand}"/>
             </StackLayout>
