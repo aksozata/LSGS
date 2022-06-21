@@ -58,7 +58,8 @@ namespace LSGS.ViewModels
                 var Author_name = reader.GetString("Author");
                 var Published_year = reader.GetInt32("Year");
                 var Serial_no = reader.GetInt32("Serial_no");
-                var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString(), Serial_no.ToString());
+                var imageUrl = reader.GetString("IMG_URL");
+                var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString(), imageUrl, Serial_no.ToString());
                 search_result_list.Add(each_book);
             }
             connection.Close();
