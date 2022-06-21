@@ -4,9 +4,57 @@
              x:Class="LSGS.Views.FriendsListPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <CollectionView x:Name="friendCollection" ItemsSource="{Binding friendsList}"
+                SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid >
+                            <Grid Margin="5"
+                                RowDefinitions="Auto, *"
+                                ColumnDefinitions="Auto, *">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="LightBlue" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding Name}"
+                       FontAttributes="Bold" />
+                                <Label Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding Surname}"
+                       VerticalOptions="End" 
+                       FontAttributes="Bold"/>
+                                <Label Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding METU_ID}"
+                       VerticalOptions="End" />
+                                <Label Grid.Row="4"
+                       Grid.Column="1"
+                       Text="{Binding Email}"
+                       VerticalOptions="End" />
+                                <Label Grid.Row="5"
+                       Grid.Column="1"
+                       Text="{Binding Description}"
+                       VerticalOptions="End" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="20">
+                <Button Text="Remove" Command="{Binding DeclineCommand}"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
