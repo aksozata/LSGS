@@ -18,7 +18,7 @@
                 <Label Text="{Binding PublishYear}" Grid.Row="3" Grid.Column="1" FontSize="14" HeightRequest="40"/>
                 <Button Text="Rate" FontAttributes="Bold" FontSize="16" BackgroundColor="CadetBlue" Grid.Column="0" Grid.Row="4" Clicked="Rate_Button_Clicked"/>
                 <Button Text= "Recommend" FontAttributes="Bold" FontSize="16" BackgroundColor="DeepSkyBlue" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Clicked="Recommend_Button_Clicked"/>
-                <Button Text= "Reserve" FontAttributes="Bold" FontSize="16" BackgroundColor="Green" Grid.Column="3" Grid.Row="4" Clicked="Reserve_Button_Clicked"/>
+                <Button x:Name="ReserveButton"  Text= "Reserve" FontAttributes="Bold" FontSize="16" BackgroundColor="Green" Grid.Column="3" Grid.Row="4" Clicked="Reserve_Button_Clicked"/>
                 <Label Text="Comments" FontAttributes="Bold"  FontSize="16" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" />
                 <CollectionView x:Name="comments" ItemsSource="{Binding CommentList}" SelectionMode="Single" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="6" VerticalOptions="FillAndExpand">
                     <CollectionView.ItemTemplate>

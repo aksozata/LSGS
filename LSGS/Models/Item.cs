@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LSGS.Models
 {
@@ -17,6 +18,8 @@ namespace LSGS.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
+        public List<string> LentBookList { get; set; }
+        public List<string> ReservedBookList { get; set; }
 
         public Profile() {
             this.METU_ID = null;
@@ -29,6 +32,8 @@ namespace LSGS.Models
             this.Password = Password;
             this.Email = Email;
             this.Description = Description;
+            this.LentBookList = new List<string>();
+            this.ReservedBookList = new List<string>();
         }
 
     }
