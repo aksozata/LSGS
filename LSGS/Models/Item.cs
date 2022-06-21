@@ -37,6 +37,24 @@ namespace LSGS.Models
         }
 
     }
+    public class Group
+    {
+        public string Name { get; set; }
+        public string Category { get; set; }
+        public string Description { get; set; }
+        public int OwnerID { get; set; }
+        public Group()
+        {
+        }
+        public Group(string Name, string Category, string Description, int OwnerID = -1)
+        {
+            this.Name = Name;
+            this.Category = Category;
+            this.Description = Description;
+            this.OwnerID = OwnerID;
+        }
+
+    }
 
     public class Book
     {

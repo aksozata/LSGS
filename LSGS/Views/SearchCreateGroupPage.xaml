@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LSGS.Views.SearchCreateGroupPage"
+             Title="Search/Create Group">
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" Spacing="20" Padding="20,0,20,0">
+            <Label Text="Enter Group Details" FontSize="30" FontAttributes="Bold" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Name:" HorizontalOptions="FillAndExpand" FontSize="Large"/>
+                <Entry Placeholder="                               " Text="{Binding searchedGroup.Name}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Category" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Picker  x:Name="picker1" HorizontalOptions="Start" Title="Choose a Category"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="Description" HorizontalOptions="FillAndExpand" FontSize="Large" />
+                <Entry Placeholder="                               " Text="{Binding searchedGroup.Description}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Button VerticalOptions="Center" Text="Create" Command="{Binding CreateGroupCommand}"/>
+                <Button VerticalOptions="Center" Text="Search" Command="{Binding SearchGroupCommand}"/>
+            </StackLayout>
+
+            
+
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

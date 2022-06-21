@@ -87,8 +87,11 @@
     </MenuItem>
     <MenuItem Text="Search Book" Clicked="OnMenuItemClicked">
     </MenuItem>
+    <MenuItem Text="Search/Create Group" Clicked="OnMenuItemClicked">
+    </MenuItem>
     <MenuItem Text="Report" Clicked="OnMenuItemClicked">
     </MenuItem>
+    
 
     <!--<FlyoutItem>
         <ShellContent Title="Search Friend" Route="Search Friend" ContentTemplate="{DataTemplate local:SearchFriendPage}" />
@@ -117,6 +120,7 @@
         <ShellContent Route="RatingPage" ContentTemplate="{DataTemplate local:RatingPage}" />
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
         <ShellContent Route="MyBooksPage" ContentTemplate="{DataTemplate local:MyBooksPage}" />
+        <ShellContent Route="SearchCreateGroupPage" ContentTemplate="{DataTemplate local:SearchCreateGroupPage}" />
     </TabBar>
 
     <!-- Optional Templates 

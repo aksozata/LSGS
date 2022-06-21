@@ -16,7 +16,7 @@ namespace LSGS
             Routing.RegisterRoute(nameof(FriendSearchResultsPage), typeof(FriendSearchResultsPage));
             Routing.RegisterRoute(nameof(ReportPage), typeof(ReportPage));
             Routing.RegisterRoute(nameof(PendingRequestsPage), typeof(PendingRequestsPage));
-
+            Routing.RegisterRoute(nameof(SearchCreateGroupPage), typeof(SearchCreateGroupPage));
 
         }
 
@@ -53,6 +53,12 @@ namespace LSGS
                 case "Report":
                     {
                         await Current.GoToAsync("ReportPage");
+                        Shell.Current.FlyoutIsPresented = false;
+                    }
+                    break;
+                case "Search/Create Group":
+                    {
+                        await Current.GoToAsync("SearchCreateGroupPage");
                         Shell.Current.FlyoutIsPresented = false;
                     }
                     break;
