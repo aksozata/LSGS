@@ -18,5 +18,8 @@ namespace LSGS.Views
         {
             InitializeComponent();
         }
+        async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
     }
 }

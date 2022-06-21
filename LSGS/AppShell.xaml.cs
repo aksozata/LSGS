@@ -56,12 +56,6 @@ namespace LSGS
                         Shell.Current.FlyoutIsPresented = false;
                     }
                     break;
-                case "Pending Request":
-                    {
-                        await Current.GoToAsync("PendingRequestsPage");
-                        Shell.Current.FlyoutIsPresented = false;
-                    }
-                    break;
             }
         }
     }

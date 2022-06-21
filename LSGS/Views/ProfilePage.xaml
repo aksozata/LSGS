@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LSGS.Views.ProfilePage">
+             x:Class="LSGS.Views.ProfilePage"
+             Title="Profile">
     <ContentPage.Content>
         <Grid x:Name="mainGrid" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" Padding="{x:OnPlatform Android='10,10,10,10'}">
             <Label Text="Name: " FontAttributes="Bold" Grid.Row="0" Grid.Column="0" FontSize="16" HeightRequest="40"/>
