@@ -18,7 +18,7 @@ namespace LSGS.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
-        public List<string> LentBookList { get; set; }
+        public List<string> LentBookList { get; set; } 
         public List<string> ReservedBookList { get; set; }
 
         public Profile() {
@@ -49,6 +49,17 @@ namespace LSGS.Models
             ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Papio_anubis_%28Serengeti%2C_2009%29.jpg/200px-Papio_anubis_%28Serengeti%2C_2009%29.jpg";
             SerialNo = serialNo;
         }
+
+        public Book(string name, string author, string publisher, string publishYear, string imageUrl, string serialNo)
+        {
+            Name = name;
+            Author = author;
+            Publisher = publisher;
+            PublishYear = publishYear;
+            ImageUrl = imageUrl;
+            SerialNo = serialNo;
+        }
+
 
         public Book()
         {

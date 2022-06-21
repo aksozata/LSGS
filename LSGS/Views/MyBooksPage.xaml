@@ -4,9 +4,9 @@
              x:Class="LSGS.Views.MyBooksPage">
     <ContentPage.Content>
         <StackLayout>
-            <CollectionView ItemsSource="{Binding BookList}"
+            <CollectionView ItemsSource="{Binding MyBookList}"
                 SelectionMode="Single"
-                SelectionChanged="OnSelectionChanged">
+                SelectionChanged="CollectionView_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10"
