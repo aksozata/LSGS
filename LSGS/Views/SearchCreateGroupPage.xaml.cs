@@ -33,6 +33,11 @@ namespace LSGS.Views
 
         private async void OnCreateClicked(object obj)
         {
+            if(searchedGroup.Name == null || searchedGroup.Description == null || picker1.SelectedIndex < 0 )
+            {
+                App.Current.MainPage.DisplayAlert("Warning", "Please fill in all areas!", "OK");
+                return;
+            }
             if (Globals.connection.State != System.Data.ConnectionState.Open)
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters
@@ -40,10 +45,16 @@ namespace LSGS.Views
                 command.CommandText =
                     $@"INSERT INTO StudyGroup (`OwnerID`, `Name`, `Description`, `Category`) 
                   VALUES('{Globals.profile.METU_ID}', '{searchedGroup.Name}', '{searchedGroup.Description}', '{picker1.Items[picker1.SelectedIndex]}');";
+            try
+            {
                 var insert = await command.ExecuteNonQueryAsync();
-                Globals.connection.Close();
                 App.Current.MainPage.DisplayAlert("Success", "Study group is created!", "OK");
-            
+            }
+            catch(Exception ex)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Study group is not created!", "OK");
+            }
+            finally { Globals.connection.Close(); }      
         }
 
         private async void OnSearchClicked(object obj)
