@@ -43,8 +43,10 @@ namespace LSGS.Views
             }
             // Get the book
             var command = Globals.connection.CreateCommand();
-            command.CommandText = $@"SELECT * FROM Book WHERE Serial_No in
-(SELECT Book_ID FROM Recommend WHERE Recommendee = '{Globals.profile.METU_ID}');";
+            command.CommandText = $@"SELECT * FROM
+(SELECT * FROM User WHERE METU_ID in (SELECT Recommender FROM Recommend WHERE '{Globals.profile.METU_ID}' = Recommendee)) a
+CROSS JOIN
+(SELECT * FROM Book WHERE Serial_No in (SELECT Book_ID FROM Recommend WHERE '{Globals.profile.METU_ID}' = Recommendee)) b; ";
             try
             {
                 var reader = await command.ExecuteReaderAsync();
@@ -54,37 +56,12 @@ namespace LSGS.Views
                     var serialNo = reader.GetUInt32("Serial_No");
                     var author = reader.GetString("Author");
                     var imageUrl = reader.GetString("IMG_URL");
-                    //MyRecommendedBooksList.Add(new RecommendedBookInfo(imageUrl, name, author, serialNo.ToString()));
-                    MyRecommendedBooksList.Add(new RecommendedBookInfo(imageUrl, name, author, serialNo.ToString(), "AAAAAA"));
+                    var firstName = reader.GetString("First_Name");
+                    var surname = reader.GetString("Surname");
+                    MyRecommendedBooksList.Add(new RecommendedBookInfo(imageUrl, name, author, serialNo.ToString(), $"{firstName} {surname}"));
                 }
             }
             catch(Exception ex)
-            {
-
-            }
-            finally
-            {
-                Globals.connection.Close();
-            }
-
-            // Get the recommender
-            Globals.connection.Open();
-            command.CommandText = $@"SELECT * FROM User Where METU_ID in
-(SELECT Recommender FROM Recommend WHERE Recommendee = '{Globals.profile.METU_ID}');";
-            try
-            {
-                var reader = await command.ExecuteReaderAsync();
-                int ind = 0;
-                if (reader.Read())
-                {
-                    var firstName = reader.GetString("First_Name");
-                    var surname = reader.GetString("Surname");
-                    //if(ind < MyRecommendedBooksList.Count)
-                    //    MyRecommendedBooksList[ind].Recommender = $"{firstName} {surname}";
-                    //ind++;
-                }
-            }
-            catch (Exception ex)
             {
 
             }
