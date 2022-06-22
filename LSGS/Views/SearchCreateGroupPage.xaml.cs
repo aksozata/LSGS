@@ -8,6 +8,7 @@ using LSGS.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using LSGS.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace LSGS.Views
 {
@@ -15,13 +16,14 @@ namespace LSGS.Views
     public partial class SearchCreateGroupPage : ContentPage
     {
         public IList pickerList;
-        public static IList searchResults;
+        public static ObservableCollection<Group> searchResults { get; set; }
         public Command SearchGroupCommand { get; }
         public Command CreateGroupCommand { get; }
         public Group searchedGroup { get; set; } = new Group();
         public SearchCreateGroupPage()
         {
             InitializeComponent();
+            searchResults = new ObservableCollection<Group>();
             SearchGroupCommand = new Command(OnSearchClicked);
             CreateGroupCommand = new Command(OnCreateClicked);
             List<string> tempList = new List<string>();
@@ -33,7 +35,7 @@ namespace LSGS.Views
 
         private async void OnCreateClicked(object obj)
         {
-            if(searchedGroup.Name == null || searchedGroup.Description == null || picker1.SelectedIndex < 0 )
+            if(searchedGroup.Name == null || searchedGroup.Description == null || picker1.SelectedIndex < 0)
             {
                 App.Current.MainPage.DisplayAlert("Warning", "Please fill in all areas!", "OK");
                 return;
@@ -59,7 +61,7 @@ namespace LSGS.Views
 
         private async void OnSearchClicked(object obj)
         {
-            List<Group> search_result_list = new List<Group>();
+            ObservableCollection<Group> search_result_list = new ObservableCollection<Group>();
             bool andChecker = false;
             bool shouldThereBeWhere = false;
             if (Globals.connection.State != System.Data.ConnectionState.Open)
@@ -115,7 +117,7 @@ namespace LSGS.Views
             }
             Globals.connection.Close();
             searchResults = search_result_list;
-            await Shell.Current.GoToAsync("GroupSearchResultsPage");
+            await Navigation.PushAsync(new GroupSearchResultsPage());
         }
     }
 }
