@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using LSGS.Models;
+using System.Collections.ObjectModel;
 
 namespace LSGS.ViewModels
 {
     public class SearchBookViewModel : BaseViewModel
     {
-        public static List<Book> BookSearchResultsList = new List<Book>();
+        public static ObservableCollection<Book> BookSearchResultsList = new ObservableCollection<Book>();
         public Command SearchBookCommand { get; }
         public Book searchedBook { get; set; } = new Book();
         public INavigation Navigation;
@@ -22,7 +23,7 @@ namespace LSGS.ViewModels
 
         private async void OnSearchClicked(object obj)
         {
-            List<Book> search_result_list = new List<Book>();
+            ObservableCollection<Book> search_result_list = new ObservableCollection<Book>();
             // set these values correctly for your database server
             var builder = new MySqlConnectionStringBuilder
             {

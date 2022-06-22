@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LSGS.Views.MyRecommendedBooksPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding MyRecommendedBooksList}"
+                SelectionMode="Single"
+                SelectionChanged="OnSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10"
+                  RowDefinitions="Auto, *, *"
+                  ColumnDefinitions="Auto, *">
+                            <Image Grid.Row="0" Grid.RowSpan="2"
+                       Source="{Binding ImageUrl}"
+                       Aspect="AspectFill"
+                       HeightRequest="60"
+                       WidthRequest="60" />
+                            <Label Grid.Column="1"
+                       Text="{Binding BookName}"
+                       FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding Author}"
+                       VerticalOptions="End" />
+                            <Label Grid.Row="2" Grid.Column="0" Text="Recommended by" FontSize="Small" HorizontalOptions="StartAndExpand"/>
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Recommender}" FontSize="Small" HorizontalOptions="StartAndExpand" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

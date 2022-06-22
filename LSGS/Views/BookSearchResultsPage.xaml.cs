@@ -7,6 +7,7 @@ using LSGS.ViewModels;
 using LSGS.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Collections.ObjectModel;
 
 namespace LSGS.Views
 {
@@ -14,7 +15,7 @@ namespace LSGS.Views
     public partial class BookSearchResultsPage : ContentPage
     {
         public static string BookSerialNo;
-        public IList<Book> BookList { get; set; }
+        public ObservableCollection<Book> BookList { get; set; }
         public BookSearchResultsPage()
         {
             InitializeComponent();
@@ -29,7 +30,6 @@ namespace LSGS.Views
         {
             Book selectedItem = e.CurrentSelection[0] as Book;
             BookSerialNo = selectedItem.SerialNo;
-            //await Shell.Current.GoToAsync("//BookPage");
             await Navigation.PushAsync(new BookPage());
         }
 

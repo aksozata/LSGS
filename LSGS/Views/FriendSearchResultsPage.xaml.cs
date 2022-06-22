@@ -50,24 +50,31 @@ namespace LSGS.Views
             var command = Globals.connection.CreateCommand();
             command.CommandText =
                 $@"SELECT * FROM Friends WHERE Friends.User = '{Globals.profile.METU_ID}' AND Friends.Friend = '{METU_ID}'";
-            var reader = await command.ExecuteReaderAsync();
+            try
+            {
+                var reader = await command.ExecuteReaderAsync();
 
-            if (reader.Read())
-            {
-                App.Current.MainPage.DisplayAlert("Friend", "This user is already added as friend!", "OK");
-                Globals.connection.Close();
-            }
-            else
-            {
-                Globals.connection.Close();
-                Globals.connection.Open();
-                command.CommandText =
-                    $@"INSERT INTO Friends (`User`, `Friend`) 
+                if (reader.Read())
+                {
+                    App.Current.MainPage.DisplayAlert("Friend", "This user is already added as friend!", "OK");
+                    Globals.connection.Close();
+                }
+                else
+                {
+                    Globals.connection.Close();
+                    Globals.connection.Open();
+                    command.CommandText =
+                        $@"INSERT INTO Friends (`User`, `Friend`) 
                   VALUES('{Globals.profile.METU_ID}', '{METU_ID}');";
-                var insert = await command.ExecuteNonQueryAsync();
-                Globals.connection.Close();
-                App.Current.MainPage.DisplayAlert("Success", "Friend request is sent!", "OK");
+                    var insert = await command.ExecuteNonQueryAsync();
+                    App.Current.MainPage.DisplayAlert("Success", "Friend request is sent!", "OK");
+                }
             }
+            catch(Exception ex)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Friend request is not sent! ", "OK");
+            }
+            finally { Globals.connection.Close(); }
         }
         private async void RemoveClicked(object obj)
         {

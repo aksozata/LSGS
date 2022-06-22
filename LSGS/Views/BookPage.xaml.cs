@@ -8,6 +8,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MySqlConnector;
 using System.ComponentModel;
+using LSGS.ViewModels;
+using System.Threading;
 
 namespace LSGS.Views
 {
@@ -20,7 +22,25 @@ namespace LSGS.Views
 
         public BookPage()
         {
-            BookInformation = ViewModels.SearchBookViewModel.BookSearchResultsList.Find(book => book.SerialNo == BookSearchResultsPage.BookSerialNo);
+            if(SearchBookViewModel.BookSearchResultsList.Count > 0)
+                BookInformation = SearchBookViewModel.BookSearchResultsList.Where(book => book.SerialNo == BookSearchResultsPage.BookSerialNo).FirstOrDefault();
+            else
+            {
+                GetBook();
+            }
+            bool isNull = true;
+            while(isNull)
+            {
+                lock(BookInformation)
+                {
+                    if (BookInformation.Name != null)
+                    {
+                        isNull = false;
+                        break;
+                    }
+                }
+                Thread.Sleep(200);
+            }
             InitializeComponent();
             if(Globals.profile.ReservedBookList.Contains(BookInformation.SerialNo))
             {
@@ -64,6 +84,52 @@ namespace LSGS.Views
             bindingModel = new BindingClass(BookInformation.Name, BookInformation.Author, BookInformation.Publisher, BookInformation.PublishYear, BookInformation.ImageUrl, BookInformation.SerialNo, CommentList);
             BindingContext = bindingModel;
             ChangeButton();
+        }
+
+        private async void GetBook()
+        {
+            if (Globals.connection.State != System.Data.ConnectionState.Open)
+            {
+                try
+                {
+                    Globals.connection.Close();
+                    Globals.connection.Open();
+                }
+                catch (Exception ex)
+                {
+                    App.Current.MainPage.DisplayAlert("Error", "Database Connection Failure", "OK");
+                    return;
+                }
+            }
+            // Get the book
+            var newCommand = Globals.connection.CreateCommand();
+            newCommand.CommandText = $@"SELECT * FROM Book WHERE Serial_No = '{BookSearchResultsPage.BookSerialNo}';";
+            try
+            {
+                var reader = await newCommand.ExecuteReaderAsync();
+                if (reader.Read())
+                {
+                    var name = reader.GetString("Title");
+                    var serialNo = reader.GetUInt32("Serial_No");
+                    var author = reader.GetString("Author");
+                    var imageUrl = reader.GetString("IMG_URL");
+                    var publishYear = reader.GetUInt32("Year");
+                    var publisher = reader.GetString("Publisher");
+                    lock(BookInformation)
+                    {
+                        BookInformation = new Book(name, author, publisher, publishYear.ToString(), serialNo.ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Database Connection Failure", "OK");
+                await Navigation.PopAsync();
+            }
+            finally
+            {
+                Globals.connection.Close();
+            }
         }
 
         private async void ChangeButton()
@@ -135,9 +201,10 @@ namespace LSGS.Views
             //await Shell.Current.GoToAsync("//RatingPage");
         }
 
-        private void Recommend_Button_Clicked(object sender, EventArgs e)
+        private async void Recommend_Button_Clicked(object sender, EventArgs e)
         {
-
+            FriendsListPage.IsRecommended = true;
+            await Navigation.PushAsync(new FriendsListPage());
         }
 
         private async void Reserve_Button_Clicked(object sender, EventArgs e)

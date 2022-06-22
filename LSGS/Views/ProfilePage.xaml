@@ -4,7 +4,7 @@
              x:Class="LSGS.Views.ProfilePage"
              Title="Profile">
     <ContentPage.Content>
-        <Grid x:Name="mainGrid" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" Padding="{x:OnPlatform Android='10,10,10,10'}">
+        <Grid x:Name="mainGrid" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" Padding="{x:OnPlatform Android='10,10,10,10'}">
             <Label Text="Name: " FontAttributes="Bold" Grid.Row="0" Grid.Column="0" FontSize="16" HeightRequest="40"/>
             <Label Text="{Binding Name}" Grid.Row="0" Grid.Column="1" FontSize="14" HeightRequest="40"/>
             <Label Text="Surname: " FontAttributes="Bold" Grid.Row="1" Grid.Column="0" FontSize="16" HeightRequest="40"/>
@@ -15,10 +15,11 @@
             <Label Text="{Binding Email}" Grid.Row="3" Grid.Column="1" FontSize="14" HeightRequest="40"/>
             <Label Text="Description: " FontAttributes="Bold" Grid.Row="4" Grid.Column="0" FontSize="16" HeightRequest="40"/>
             <Label Text="{Binding Description}" Grid.Row="4" Grid.Column="1" FontSize="14" HeightRequest="40"/>
-            <Button Text="Books" FontSize="16" BackgroundColor="CadetBlue" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Clicked="Books_Button_Clicked" />
+            <Button Text="My Books" FontSize="16" BackgroundColor="CadetBlue" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Clicked="Books_Button_Clicked" />
             <Button Text= "Friends" FontSize="16" BackgroundColor="CadetBlue" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Clicked="Friends_Button_Clicked"/>
             <Button Text= "Pending Requests" FontSize="16" BackgroundColor="CadetBlue" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="7" Clicked="PendingRequests_Button_Clicked"/>
             <Button Text= "Study Groups" FontSize="16" BackgroundColor="CadetBlue" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="8" Clicked="StudyGroups_Button_Clicked"/>
+            <Button Text= "Recommended Books" FontSize="16" BackgroundColor="CadetBlue" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="9" Clicked="RecommendedBooks_Button_Clicked"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

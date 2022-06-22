@@ -77,7 +77,7 @@ namespace LSGS.Views
                 var insert = await command.ExecuteNonQueryAsync();
                 Globals.connection.Close();
                 App.Current.MainPage.DisplayAlert("Success", "Friend request accepted!", "OK");
-            await Shell.Current.GoToAsync("SearchFriendPage");
+            await Shell.Current.GoToAsync("ProfilePage");
         }
         private async void DeclineClicked(object obj)
         {
@@ -90,7 +90,7 @@ namespace LSGS.Views
                 var insert = await command.ExecuteNonQueryAsync();
                 Globals.connection.Close();
             App.Current.MainPage.DisplayAlert("Success", "Friend request declined!", "OK");
-            await Shell.Current.GoToAsync("SearchFriendPage");
+            await Shell.Current.GoToAsync("ProfilePage");
         }
     }
 }

@@ -122,6 +122,7 @@
         <ShellContent Route="MyBooksPage" ContentTemplate="{DataTemplate local:MyBooksPage}" />
         <ShellContent Route="FriendsListPage" ContentTemplate="{DataTemplate local:FriendsListPage}" />
         <ShellContent Route="SearchCreateGroupPage" ContentTemplate="{DataTemplate local:SearchCreateGroupPage}" />
+        <ShellContent Route="MyRecommendedBooksPage" ContentTemplate="{DataTemplate local:MyRecommendedBooksPage}" />
     </TabBar>
 
     <!-- Optional Templates 

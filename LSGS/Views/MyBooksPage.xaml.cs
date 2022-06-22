@@ -18,12 +18,12 @@ namespace LSGS.Views
     {
         public ObservableCollection<MyBook> MyBookList 
         { get; set; }
-        public List<Book> BookList { get; set; }
+        public ObservableCollection<Book> BookList { get; set; }
         public MyBooksPage()
         {
             InitializeComponent();
             MyBookList = new ObservableCollection<MyBook>();
-            BookList = new List<Book>();
+            BookList = new ObservableCollection<Book>();
             AddBooks();
             BindingContext = this;
         }

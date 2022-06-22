@@ -53,7 +53,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="20">
-                <Button Text="Remove" Command="{Binding DeclineCommand}"/>
+                <Button x:Name="RemoveButton" Text="Remove" Command="{Binding DeclineCommand}" BackgroundColor="Firebrick"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
