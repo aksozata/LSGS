@@ -61,6 +61,7 @@ namespace LSGS.Views
         {
             List<Group> search_result_list = new List<Group>();
             bool andChecker = false;
+            bool shouldThereBeWhere = false;
             if (Globals.connection.State != System.Data.ConnectionState.Open)
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters
@@ -71,9 +72,10 @@ namespace LSGS.Views
             {
                 command.CommandText += $"Name LIKE('{searchedGroup.Name}')";
                 andChecker = true;
+                shouldThereBeWhere = true;
             }
 
-            if (picker1.Items[picker1.SelectedIndex] != null && picker1.Items[picker1.SelectedIndex] != "")
+            if (picker1.SelectedIndex >= 0 && picker1.Items[picker1.SelectedIndex] != null && picker1.Items[picker1.SelectedIndex] != "")
             {
                 if (andChecker)
                 {
@@ -81,6 +83,7 @@ namespace LSGS.Views
                 }
                 command.CommandText += $"Category LIKE('{picker1.Items[picker1.SelectedIndex]}')";
                 andChecker = true;
+                shouldThereBeWhere = true;
             }
             if (searchedGroup.Description != null && searchedGroup.Description != "")
             {
@@ -90,6 +93,11 @@ namespace LSGS.Views
                 }
                 command.CommandText += $"Description LIKE ('{searchedGroup.Description}')";
                 andChecker = true;
+                shouldThereBeWhere = true;
+            }
+            if(!shouldThereBeWhere)
+            {
+                command.CommandText = $@"SELECT * FROM StudyGroup";
             }
             command.CommandText += ";";
 
