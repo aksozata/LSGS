@@ -118,13 +118,13 @@
         <ShellContent Route="BookSearchResultsPage" ContentTemplate="{DataTemplate local:BookSearchResultsPage}" />
         <ShellContent Route="BookPage" ContentTemplate="{DataTemplate local:BookPage}" />
         <ShellContent Route="RatingPage" ContentTemplate="{DataTemplate local:RatingPage}" />
-        <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}" />
         <ShellContent Route="MyBooksPage" ContentTemplate="{DataTemplate local:MyBooksPage}" />
         <ShellContent Route="FriendsListPage" ContentTemplate="{DataTemplate local:FriendsListPage}" />
         <ShellContent Route="SearchCreateGroupPage" ContentTemplate="{DataTemplate local:SearchCreateGroupPage}" />
         <ShellContent Route="MyRecommendedBooksPage" ContentTemplate="{DataTemplate local:MyRecommendedBooksPage}" />
         <ShellContent Route="GroupSearchResultsPage" ContentTemplate="{DataTemplate local:GroupSearchResultsPage}" />
         <ShellContent Route="MyStudyGroups" ContentTemplate="{DataTemplate local:MyStudyGroups}" />
+        <ShellContent Route="StudyGroupPage" ContentTemplate="{DataTemplate local:StudyGroupPage}" />
     </TabBar>
 
     <!-- Optional Templates 

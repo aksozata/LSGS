@@ -36,6 +36,12 @@ namespace LSGS.Models
             this.ReservedBookList = new List<string>();
         }
 
+        public Profile(string name, string surname, string email)
+        {
+            Name = name;
+            Surname = surname;
+            Email = email;
+        }
     }
     public class Group
     {
@@ -43,6 +49,8 @@ namespace LSGS.Models
         public string Category { get; set; }
         public string Description { get; set; }
         public int OwnerID { get; set; }
+        public int GroupId { get; set; }
+        public List<Student> ParticipantList { get; set; }
         public Group()
         {
         }
@@ -52,6 +60,16 @@ namespace LSGS.Models
             this.Category = Category;
             this.Description = Description;
             this.OwnerID = OwnerID;
+            ParticipantList = new List<Student>();
+        }
+        public Group(string Name, string Category, string Description, int GroupId, int OwnerID = -1)
+        {
+            this.Name = Name;
+            this.Category = Category;
+            this.Description = Description;
+            this.OwnerID = OwnerID;
+            this.GroupId = GroupId;
+            ParticipantList = new List<Student>();
         }
 
     }

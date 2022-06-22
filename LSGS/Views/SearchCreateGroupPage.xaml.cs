@@ -112,7 +112,8 @@ namespace LSGS.Views
                 var Category = reader.GetString("Category");
                 var Description = reader.GetString("Description");
                 var Owner = reader.GetInt32("OwnerID");
-                var each_group = new Group(Name, Category, Description, Owner);
+                var GroupId = reader.GetInt32("ID");
+                var each_group = new Group(Name, Category, Description, GroupId, Owner);
                 search_result_list.Add(each_group);
             }
             Globals.connection.Close();

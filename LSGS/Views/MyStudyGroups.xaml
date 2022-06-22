@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LSGS.Views.MyStudyGroups">
+             x:Class="LSGS.Views.MyStudyGroups"
+             Title="My Study Groups">
     <ContentPage.Content>
         <StackLayout>
-            <CollectionView x:Name="friendCollection" ItemsSource="{Binding StudyGroupList}"
+            <CollectionView x:Name="friendCollection" 
                 SelectionMode="Single" SelectionChanged="friendCollection_SelectionChanged">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -22,7 +23,8 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="20">
-                <Button x:Name="Exit" Text="Remove" Clicked="Exit_Clicked" BackgroundColor="Firebrick"/>
+                <Button x:Name="Exit" Text="Exit" Clicked="Exit_Clicked" BackgroundColor="Firebrick"/>
+                <Button x:Name="Open" Text="Open" Clicked="Open_Clicked" BackgroundColor="CadetBlue"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

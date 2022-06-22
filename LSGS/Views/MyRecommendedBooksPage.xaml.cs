@@ -75,7 +75,7 @@ CROSS JOIN
         {
             RecommendedBookInfo selectedItem = e.CurrentSelection[0] as RecommendedBookInfo;
             BookSearchResultsPage.BookSerialNo = selectedItem.BookSerialNo;
-            await Navigation.PushAsync(new BookPage());
+            //await Navigation.PushAsync(new BookPage());
         }
 
         public class RecommendedBookInfo

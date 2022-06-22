@@ -77,7 +77,7 @@ namespace LSGS.Views
                 var insert = await command.ExecuteNonQueryAsync();
                 Globals.connection.Close();
                 App.Current.MainPage.DisplayAlert("Success", "Friend request accepted!", "OK");
-            await Shell.Current.GoToAsync("ProfilePage");
+            await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}");
         }
         private async void DeclineClicked(object obj)
         {
