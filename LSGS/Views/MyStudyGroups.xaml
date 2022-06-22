@@ -23,7 +23,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="20">
-                <Button x:Name="Exit" Text="Exit" Clicked="Exit_Clicked" BackgroundColor="Firebrick"/>
+                <Button x:Name="Exit" Text="Leave" Clicked="Exit_Clicked" BackgroundColor="Firebrick"/>
                 <Button x:Name="Open" Text="Open" Clicked="Open_Clicked" BackgroundColor="CadetBlue"/>
             </StackLayout>
         </StackLayout>

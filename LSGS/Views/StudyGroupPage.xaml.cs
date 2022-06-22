@@ -1,6 +1,7 @@
 ﻿using LSGS.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace LSGS.Views
     public partial class StudyGroupPage : ContentPage
     {
         public Group GroupInformation = new Group();
-        public List<Profile> ParticipantList = new List<Profile>();
+        public ObservableCollection<Profile> ParticipantList = new ObservableCollection<Profile>();
         public StudyGroupBindingClass bindingInstance;
         public StudyGroupPage()
         {
@@ -36,11 +37,17 @@ namespace LSGS.Views
             try
             {
                 var reader = command.ExecuteReader();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     var firstName = reader.GetString("First_Name");
                     var surname = reader.GetString("Surname");
                     var email = reader.GetString("Email");
+                    int metuId = reader.GetInt32("METU_ID");
+                    if(metuId == Globals.profile.METU_ID)
+                    {
+                        JoinLeaveButton.Text = "Delete";
+                        JoinLeaveButton.BackgroundColor = Color.Red;
+                    }
                     ownerName = $"{reader.GetString("First_Name")} {reader.GetString("Surname")}";
                     ParticipantList.Add(new Profile(firstName, surname, email));
                 }
@@ -58,19 +65,25 @@ namespace LSGS.Views
 
         private void GetParticipantList()
         {
-            List<Profile> participantList = new List<Profile>();
+            ObservableCollection<Profile> participantList = new ObservableCollection<Profile>();
             if (Globals.connection.State != System.Data.ConnectionState.Open)
                 Globals.connection.Open();
             var command = Globals.connection.CreateCommand();
-            command.CommandText = $@"SELECT * FROM User WHERE METU_ID in (SELECT METU_ID from ParticipantIn WHERE GROUP_ID = '{GroupInformation.GroupId}')";
+            command.CommandText = $@"SELECT * FROM User WHERE METU_ID in (SELECT METU_ID from ParticipateIn WHERE Group_ID = '{GroupInformation.GroupId}')";
             try
             {
                 var reader = command.ExecuteReader();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     var email = reader.GetString("Email");
                     var firstName = reader.GetString("First_Name");
                     var surname = reader.GetString("Surname");
+                    int metuId = reader.GetInt32("METU_ID");
+                    if (metuId == Globals.profile.METU_ID)
+                    {
+                        JoinLeaveButton.Text = "Leave";
+                        JoinLeaveButton.BackgroundColor = Color.Firebrick;
+                    }
                     participantList.Add(new Profile(firstName, surname, email));
                 }
             }
@@ -87,7 +100,7 @@ namespace LSGS.Views
 
         public class StudyGroupBindingClass
         {
-            public StudyGroupBindingClass(string name, string category, string description, string ownerName, List<Profile> participantsList)
+            public StudyGroupBindingClass(string name, string category, string description, string ownerName, ObservableCollection<Profile> participantsList)
             {
                 Name = name;
                 Category = category;
@@ -100,12 +113,78 @@ namespace LSGS.Views
             public string Category { get; set; }
             public string Description { get; set; }
             public string OwnerName { get; set; }
-            public List<Profile> ParticipantList { get; set; }
+            public ObservableCollection<Profile> ParticipantList { get; set; }
         }
 
-        private void JoinLeaveButton_Clicked(object sender, EventArgs e)
+        private async void JoinLeaveButton_Clicked(object sender, EventArgs e)
         {
+            if (Globals.connection.State != System.Data.ConnectionState.Open)
+                Globals.connection.Open();
+            // create a DB command and set the SQL statement with parameters
+            var command = Globals.connection.CreateCommand();
+            switch (JoinLeaveButton.Text)
+            {
+                case "Join":
+                    {
+                        command.CommandText = $@"INSERT INTO ParticipateIn (METU_ID, Group_ID) VALUES ('{Globals.profile.METU_ID}', '{GroupInformation.GroupId}');";
+                    }
+                    break;
+                case "Leave":
+                    {
+                        command.CommandText = $@"DELETE FROM ParticipateIn WHERE METU_ID = '{Globals.profile.METU_ID}' AND Group_ID = '{GroupInformation.GroupId}';";
+                    }
+                    break;
+                case "Delete":
+                    {
+                        command.CommandText = $@"DELETE FROM ParticipateIn WHERE Group_ID = '{GroupInformation.GroupId}';";
+                    }
+                    break;
+            }
+            try
+            {
+                var insert = await command.ExecuteNonQueryAsync();
+                App.Current.MainPage.DisplayAlert("Success", "Action completed!", "OK");
+            }
+            catch
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Action cannot be completed!", "OK");
+            }
+            finally
+            {
+                Globals.connection.Close();
+            }
+            if(JoinLeaveButton.Text == "Delete")
+            {
+                if (Globals.connection.State != System.Data.ConnectionState.Open)
+                    Globals.connection.Open();
+                command.CommandText = $@"DELETE FROM StudyGroup WHERE ID = '{GroupInformation.GroupId}';";
+                try
+                {
+                    var insert = await command.ExecuteNonQueryAsync();
+                    await Navigation.PopAsync();
+                }
+                catch
+                {
+                    App.Current.MainPage.DisplayAlert("Error", "Action cannot be completed!", "OK");
+                }
+                finally
+                {
+                    Globals.connection.Close();
+                }
+            }
+            else if(JoinLeaveButton.Text == "Join")
+            {
+                JoinLeaveButton.Text = "Leave";
+                JoinLeaveButton.BackgroundColor = Color.Firebrick;
+                bindingInstance.ParticipantList.Add(Globals.profile);
 
+            }
+            else if(JoinLeaveButton.Text == "Leave")
+            {
+                JoinLeaveButton.Text = "Join";
+                JoinLeaveButton.BackgroundColor = Color.CadetBlue;
+                bindingInstance.ParticipantList.Remove(Globals.profile);
+            }
         }
 
         private void participants_SelectionChanged(object sender, SelectionChangedEventArgs e)

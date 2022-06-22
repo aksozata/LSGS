@@ -50,7 +50,7 @@ CROSS JOIN
             try
             {
                 var reader = await command.ExecuteReaderAsync();
-                if(reader.Read())
+                while(reader.Read())
                 {
                     var name = reader.GetString("Title");
                     var serialNo = reader.GetUInt32("Serial_No");

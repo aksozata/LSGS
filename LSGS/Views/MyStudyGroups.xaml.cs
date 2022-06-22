@@ -35,7 +35,7 @@ namespace LSGS.Views
             try
             {// execute the command and read the results
                 var reader = command.ExecuteReader();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     var name = reader.GetString("Name");
                     var category = reader.GetString("Category");

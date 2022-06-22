@@ -43,7 +43,7 @@ namespace LSGS.Views
                 var lentBookList = "(" + String.Join(", ", Globals.profile.LentBookList.ToArray()) + ")";
                 command.CommandText = $"select * from Book where Serial_No in {lentBookList}; ";
                 var reader = await command.ExecuteReaderAsync();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     var Book_name = reader.GetString("Title");
                     var Publisher = reader.GetString("Publisher");
@@ -63,7 +63,7 @@ namespace LSGS.Views
                 var reservedBookList = "(" + String.Join(", ", Globals.profile.ReservedBookList.ToArray()) + ")";
                 command.CommandText = $"select * from Book where Serial_No in {reservedBookList}; ";
                 var reader = await command.ExecuteReaderAsync();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     var Book_name = reader.GetString("Title");
                     var Publisher = reader.GetString("Publisher");

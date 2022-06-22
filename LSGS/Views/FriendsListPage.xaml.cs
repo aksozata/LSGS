@@ -93,7 +93,7 @@ namespace LSGS.Views
             try
             {
                 var reader = await command.ExecuteReaderAsync();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     var Name = reader.GetString("First_Name");
                     var Surname = reader.GetString("Surname");
