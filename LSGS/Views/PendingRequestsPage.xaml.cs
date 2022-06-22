@@ -7,6 +7,7 @@ using LSGS.ViewModels;
 using LSGS.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Collections.ObjectModel;
 
 namespace LSGS.Views
 {
@@ -16,8 +17,9 @@ namespace LSGS.Views
         public static int METU_ID;
         public Command AddCommand { get; }
         public Command DeclineCommand { get; }
-        public IList<Profile> FinalList { get; set; }
-        public static List<Profile> pendingRequestsList = new List<Profile>();
+        public ObservableCollection<Profile> FinalList { get; set; }
+        public static ObservableCollection<Profile> pendingRequestsList = new ObservableCollection<Profile>();
+        public Profile SelectedProfile = new Profile();
         public PendingRequestsPage()
         {
             InitializeComponent();
@@ -32,7 +34,7 @@ namespace LSGS.Views
 
         public async void getRequests()
         {
-            List<Profile> tempList = new List<Profile>();
+            ObservableCollection<Profile> tempList = new ObservableCollection<Profile>();
             if (Globals.connection.State != System.Data.ConnectionState.Open)
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters
@@ -61,6 +63,7 @@ namespace LSGS.Views
         async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Profile selectedItem = e.CurrentSelection[0] as Profile;
+            SelectedProfile = selectedItem;
             METU_ID = (int)selectedItem.METU_ID;
         }
 
@@ -74,10 +77,20 @@ namespace LSGS.Views
                     $@"UPDATE Friends
                     SET isAccepted = '1' 
                     WHERE User = '{METU_ID}' AND Friend = '{Globals.profile.METU_ID}';";
+            try
+            {
                 var insert = await command.ExecuteNonQueryAsync();
-                Globals.connection.Close();
                 App.Current.MainPage.DisplayAlert("Success", "Friend request accepted!", "OK");
-            await Shell.Current.GoToAsync($"//{nameof(ProfilePage)}");
+                FinalList.Remove(SelectedProfile);
+            }
+            catch(Exception Ex)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Operation failed!", "OK");
+            }
+            finally
+            {
+                Globals.connection.Close();
+            }
         }
         private async void DeclineClicked(object obj)
         {
@@ -87,10 +100,20 @@ namespace LSGS.Views
             var command = Globals.connection.CreateCommand();         
                 command.CommandText =
                     $@"DELETE FROM Friends WHERE User = '{METU_ID}' AND Friend = '{Globals.profile.METU_ID}';";
+            try
+            {
                 var insert = await command.ExecuteNonQueryAsync();
+                App.Current.MainPage.DisplayAlert("Success", "Friend request declined!", "OK");
+                FinalList.Remove(SelectedProfile);
+            }
+            catch (Exception Ex)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Operation failed!", "OK");
+            }
+            finally
+            {
                 Globals.connection.Close();
-            App.Current.MainPage.DisplayAlert("Success", "Friend request declined!", "OK");
-            await Shell.Current.GoToAsync("ProfilePage");
+            }
         }
     }
 }
