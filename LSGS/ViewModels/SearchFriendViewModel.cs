@@ -69,22 +69,31 @@ namespace LSGS.ViewModels
             if (!isThereWhere)
                 command.CommandText = $@"SELECT * FROM User ";
             command.CommandText += ";";
-
-            // execute the command and read the results
-            var reader = await command.ExecuteReaderAsync();
-
-            while (reader.Read())
+            try
             {
-                var Name = reader.GetString("First_Name");
-                var Surname = reader.GetString("Surname");
-                var METU_ID = reader.GetInt32("METU_ID");
-                var Email = reader.GetString("Email");
-                var Description = reader.GetString("Personal_Description");
-                var each_friend = new Profile(Name, Surname, METU_ID, null, Email, Description);
-                search_result_list.Add(each_friend);
+                // execute the command and read the results
+                var reader = await command.ExecuteReaderAsync();
+
+                while (reader.Read())
+                {
+                    var Name = reader.GetString("First_Name");
+                    var Surname = reader.GetString("Surname");
+                    var METU_ID = reader.GetInt32("METU_ID");
+                    var Email = reader.GetString("Email");
+                    var Description = reader.GetString("Personal_Description");
+                    var each_friend = new Profile(Name, Surname, METU_ID, null, Email, Description);
+                    search_result_list.Add(each_friend);
+                }
+                FriendSearchResultsList = search_result_list;
             }
-            Globals.connection.Close();
-            FriendSearchResultsList = search_result_list;
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "Search failed!", "OK");
+            }
+            finally
+            {
+                Globals.connection.Close();
+            }            
             await Shell.Current.GoToAsync("FriendSearchResultsPage");
         }
     }

@@ -67,19 +67,29 @@ namespace LSGS.Views
                   LEFT JOIN User ON User.METU_ID = Comment.User_ID
                   WHERE Book_ID = {BookInformation.SerialNo}
                   ;";
-            // execute the command and read the results
-            var reader = command.ExecuteReader();
-
-            while (reader.Read())
+            try
             {
-                var comment = reader.GetString("User_Comment");
-                var rating = reader.GetInt32("Rating");
-                var first_name = reader.GetString("First_Name");
-                var surname = reader.GetString("Surname");
-                var each_book = new Comment(BookInformation.SerialNo, Globals.profile.METU_ID.ToString(), first_name+" "+surname , comment, rating.ToString()+"/5");
-                comment_result_list.Add(each_book);
+                // execute the command and read the results
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var comment = reader.GetString("User_Comment");
+                    var rating = reader.GetInt32("Rating");
+                    var first_name = reader.GetString("First_Name");
+                    var surname = reader.GetString("Surname");
+                    var each_book = new Comment(BookInformation.SerialNo, Globals.profile.METU_ID.ToString(), first_name + " " + surname, comment, rating.ToString() + "/5");
+                    comment_result_list.Add(each_book);
+                }
             }
-            connection.Close();
+            catch 
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "Loading book failed", "OK"); 
+            }
+            finally 
+            {
+                connection.Close();
+            }
             CommentList = comment_result_list;
             bindingModel = new BindingClass(BookInformation.Name, BookInformation.Author, BookInformation.Publisher, BookInformation.PublishYear, BookInformation.ImageUrl, BookInformation.SerialNo, CommentList);
             BindingContext = bindingModel;
@@ -152,46 +162,56 @@ namespace LSGS.Views
 
             // Check if the book is reserved
             command.CommandText = $"SELECT * FROM Reserve WHERE Book_ID = '{BookInformation.SerialNo}';";
-            var reader = await command.ExecuteReaderAsync();
-            if (reader.Read())
+            try
             {
-                if(reader.GetInt32("User_ID") == Globals.profile.METU_ID)
+                var reader = await command.ExecuteReaderAsync();
+                if (reader.Read())
                 {
-                    ReserveButton.BackgroundColor = Color.Blue;
-                    ReserveButton.Text = "Pick up";
+                    if (reader.GetInt32("User_ID") == Globals.profile.METU_ID)
+                    {
+                        ReserveButton.BackgroundColor = Color.Blue;
+                        ReserveButton.Text = "Pick up";
+                    }
+                    else
+                    {
+                        ReserveButton.BackgroundColor = Color.Gray;
+                        ReserveButton.Text = "Unavailable";
+                        ReserveButton.IsEnabled = false;
+                        ReserveButton.FontSize = 10;
+                    }
+                    return;
                 }
-                else
-                {
-                    ReserveButton.BackgroundColor = Color.Gray;
-                    ReserveButton.Text = "Unavailable";
-                    ReserveButton.IsEnabled = false;
-                    ReserveButton.FontSize = 10;
-                }
-                Globals.connection.Close();
-                return;
             }
-            Globals.connection.Close();
+            catch { }
+            finally
+            {
+                Globals.connection.Close();
+            }          
 
             // Check if the book is picked up
             Globals.connection.Open();
             command.CommandText = $"SELECT * FROM Lend WHERE Book_ID = '{BookInformation.SerialNo}';";
-            reader = await command.ExecuteReaderAsync();
-            if(reader.Read())
+            try
             {
-                if(reader.GetInt32("METU_ID") == Globals.profile.METU_ID)
+                var reader = await command.ExecuteReaderAsync();
+                if (reader.Read())
                 {
-                    ReserveButton.BackgroundColor = Color.Red;
-                    ReserveButton.Text = "Return";
-                }
-                else
-                {
-                    ReserveButton.BackgroundColor = Color.Gray;
-                    ReserveButton.Text = "Unavailable";
-                    ReserveButton.IsEnabled = false;
-                    ReserveButton.FontSize = 10;
+                    if (reader.GetInt32("METU_ID") == Globals.profile.METU_ID)
+                    {
+                        ReserveButton.BackgroundColor = Color.Red;
+                        ReserveButton.Text = "Return";
+                    }
+                    else
+                    {
+                        ReserveButton.BackgroundColor = Color.Gray;
+                        ReserveButton.Text = "Unavailable";
+                        ReserveButton.IsEnabled = false;
+                        ReserveButton.FontSize = 10;
+                    }
                 }
             }
-            Globals.connection.Close();
+            catch { }
+            finally { Globals.connection.Close(); }            
         }
 
         private async void Rate_Button_Clicked(object sender, EventArgs e)
@@ -256,12 +276,16 @@ namespace LSGS.Views
                         // Get password from RESERVE table
                         int password = 0;
                         command.CommandText = $"SELECT * FROM Reserve WHERE Book_ID = '{BookInformation.SerialNo}';";
-                        var reader = await command.ExecuteReaderAsync();
-                        if(reader.Read())
+                        try
                         {
-                            password = reader.GetInt32("Password");
+                            var reader = await command.ExecuteReaderAsync();
+                            if (reader.Read())
+                            {
+                                password = reader.GetInt32("Password");
+                            }
                         }
-                        Globals.connection.Close();
+                        catch { }                        
+                        finally { Globals.connection.Close(); }                       
 
                         // Add to LEND table and user lent book list
                         Globals.connection.Open();
@@ -294,12 +318,16 @@ namespace LSGS.Views
                         // Get password from LEND table
                         command.CommandText = $"SELECT * FROM Lend WHERE Book_ID = '{BookInformation.SerialNo}';";
                         int password = 0;
-                        var reader = await command.ExecuteReaderAsync();
-                        if (reader.Read())
+                        try
                         {
-                            password = reader.GetInt32("Password");
+                            var reader = await command.ExecuteReaderAsync();
+                            if (reader.Read())
+                            {
+                                password = reader.GetInt32("Password");
+                            }
                         }
-                        Globals.connection.Close();
+                        catch { }
+                        finally { Globals.connection.Close(); }                      
 
                         // Delete from LEND table and user lent book list
                         Globals.connection.Open();

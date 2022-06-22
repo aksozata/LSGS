@@ -40,24 +40,27 @@ namespace LSGS.Views
             // create a DB command and set the SQL statement with parameters
             var command = Globals.connection.CreateCommand();
             command.CommandText = $@"SELECT * FROM Friends INNER JOIN User ON Friends.User = User.METU_ID WHERE Friends.Friend = '{Globals.profile.METU_ID}' AND Friends.isAccepted = 0;";           
-
-            // execute the command and read the results
-            var reader = await command.ExecuteReaderAsync();
-
-            while (reader.Read())
+            try
             {
-                var Name = reader.GetString("First_Name");
-                var Surname = reader.GetString("Surname");
-                var METU_ID = reader.GetInt32("METU_ID");
-                var Email = reader.GetString("Email");
-                var Description = reader.GetString("Personal_Description");
-                var each_request = new Profile(Name, Surname, METU_ID, "-1", Email, Description);
-                tempList.Add(each_request);
+                // execute the command and read the results
+                var reader = await command.ExecuteReaderAsync();
+
+                while (reader.Read())
+                {
+                    var Name = reader.GetString("First_Name");
+                    var Surname = reader.GetString("Surname");
+                    var METU_ID = reader.GetInt32("METU_ID");
+                    var Email = reader.GetString("Email");
+                    var Description = reader.GetString("Personal_Description");
+                    var each_request = new Profile(Name, Surname, METU_ID, "-1", Email, Description);
+                    tempList.Add(each_request);
+                }
             }
+            catch { }
+            finally { Globals.connection.Close(); }
             pendingRequestsList = tempList;
             FinalList = pendingRequestsList;
-            friendCollection.ItemsSource = FinalList;
-            Globals.connection.Close();
+            friendCollection.ItemsSource = FinalList;          
 
         }
         async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)

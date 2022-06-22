@@ -50,21 +50,31 @@ namespace LSGS.ViewModels
                   Publisher LIKE ('%{searchedBook.Publisher}%')
                   ;";
             // execute the command and read the results
-            var reader = await command.ExecuteReaderAsync();
-            
-            while (reader.Read())
+            try
             {
-                var Book_name = reader.GetString("Title");
-                var Publisher = reader.GetString("Publisher");
-                var Author_name = reader.GetString("Author");
-                var Published_year = reader.GetInt32("Year");
-                var Serial_no = reader.GetInt32("Serial_no");
-                var imageUrl = reader.GetString("IMG_URL");
-                var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString(), imageUrl, Serial_no.ToString());
-                search_result_list.Add(each_book);
+                var reader = await command.ExecuteReaderAsync();
+                while (reader.Read())
+                {
+                    var Book_name = reader.GetString("Title");
+                    var Publisher = reader.GetString("Publisher");
+                    var Author_name = reader.GetString("Author");
+                    var Published_year = reader.GetInt32("Year");
+                    var Serial_no = reader.GetInt32("Serial_no");
+                    var imageUrl = reader.GetString("IMG_URL");
+                    var each_book = new Book(Book_name, Author_name, Publisher, (Published_year).ToString(), imageUrl, Serial_no.ToString());
+                    search_result_list.Add(each_book);
+                    BookSearchResultsList = search_result_list;
+                }
             }
-            connection.Close();
-            BookSearchResultsList = search_result_list;
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "Search failed!", "OK");
+            }
+            finally
+            {
+                connection.Close();
+            }
+
             //await Shell.Current.GoToAsync("//BookSearchResultsPage");
             await Navigation.PushAsync(new BookSearchResultsPage());
 
