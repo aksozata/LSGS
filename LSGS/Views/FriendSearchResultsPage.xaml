@@ -55,8 +55,8 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="20">
-                <Button Text="Add Friend" Command="{Binding AddCommand}"/>
-                <Button Text="Remove Friend" Command="{Binding RemoveCommand}"/>
+                <Button x:Name="AddButton" Text="Add Friend" Command="{Binding AddCommand}"/>
+                <Button x:Name="RemoveButton" Text="Remove Friend" Command="{Binding RemoveCommand}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

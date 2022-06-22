@@ -26,6 +26,8 @@ namespace LSGS.Views
             AddCommand = new Command(AddClicked);
             RemoveCommand = new Command(RemoveClicked);
             BindingContext = this;
+            AddButton.IsEnabled = false;
+            RemoveButton.IsEnabled = false;
         }
 
         // rate recommend comment reserve
@@ -35,6 +37,35 @@ namespace LSGS.Views
         {
             Profile selectedItem = e.CurrentSelection[0] as Profile;
             METU_ID = (int)selectedItem.METU_ID;
+
+            if (Globals.connection.State != System.Data.ConnectionState.Open)
+                Globals.connection.Open();
+            // create a DB command and set the SQL statement with parameters
+            var command = Globals.connection.CreateCommand();
+            command.CommandText =
+                $@"SELECT * FROM Friends WHERE ((User = '{Globals.profile.METU_ID}' and Friend = '{METU_ID}') OR (Friend = '{Globals.profile.METU_ID}' and User = '{METU_ID}'))";
+            try
+            {
+                var reader = await command.ExecuteReaderAsync();
+                if(reader.Read())
+                {
+                    AddButton.IsEnabled = false;
+                    RemoveButton.IsEnabled = true;
+                }
+                else
+                {
+                    AddButton.IsEnabled = true;
+                    RemoveButton.IsEnabled = false;
+                }
+            }
+            catch(Exception ex)
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Operation failed.", "OK");
+            }
+            finally
+            {
+                Globals.connection.Close();
+            }
         }
 
         private async void AddClicked(object obj)
@@ -48,27 +79,12 @@ namespace LSGS.Views
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters
             var command = Globals.connection.CreateCommand();
-            command.CommandText =
-                $@"SELECT * FROM Friends WHERE Friends.User = '{Globals.profile.METU_ID}' AND Friends.Friend = '{METU_ID}'";
+            command.CommandText = $@"INSERT INTO Friends (`User`, `Friend`) 
+                  VALUES('{Globals.profile.METU_ID}', '{METU_ID}');";
             try
             {
-                var reader = await command.ExecuteReaderAsync();
-
-                if (reader.Read())
-                {
-                    App.Current.MainPage.DisplayAlert("Friend", "This user is already added as friend!", "OK");
-                    Globals.connection.Close();
-                }
-                else
-                {
-                    Globals.connection.Close();
-                    Globals.connection.Open();
-                    command.CommandText =
-                        $@"INSERT INTO Friends (`User`, `Friend`) 
-                  VALUES('{Globals.profile.METU_ID}', '{METU_ID}');";
-                    var insert = await command.ExecuteNonQueryAsync();
-                    App.Current.MainPage.DisplayAlert("Success", "Friend request is sent!", "OK");
-                }
+                var insert = await command.ExecuteNonQueryAsync();
+                App.Current.MainPage.DisplayAlert("Success", "Friend request is sent!", "OK");
             }
             catch(Exception ex)
             {
@@ -82,23 +98,20 @@ namespace LSGS.Views
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters
             var command = Globals.connection.CreateCommand();
-            command.CommandText =
-                $@"SELECT * FROM Friend WHERE User = '{Globals.profile.METU_ID}' AND Friend = '{METU_ID}";
-            var reader = await command.ExecuteReaderAsync();
-
-            if (reader.Read())
+            command.CommandText = $@"DELETE FROM Friends Where (User ='{Globals.profile.METU_ID}' and Friend = '{METU_ID}' ) OR (Friend = '{Globals.profile.METU_ID}' and User = '{METU_ID}');";
+            try
             {
-                command.CommandText =
-                    $@"DELETE FROM Friend (`User`, `Friend`) 
-                  VALUES('{Globals.profile.METU_ID}', '{METU_ID}');";
                 var insert = await command.ExecuteNonQueryAsync();
-                Globals.connection.Close();
-            }
-            else
-            {
-                App.Current.MainPage.DisplayAlert("Friend", "This user is not currently a friend", "OK");
-                Globals.connection.Close();
+                App.Current.MainPage.DisplayAlert("Success", "Deletion is successful!", "OK");
 
+            }
+            catch
+            {
+                App.Current.MainPage.DisplayAlert("Error", "Operation failed!", "OK");
+            }
+            finally
+            {
+                Globals.connection.Close();
             }
         }
     }
