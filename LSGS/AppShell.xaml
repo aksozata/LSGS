@@ -89,7 +89,7 @@
     </MenuItem>
     <MenuItem Text="Search/Create Group" Clicked="OnMenuItemClicked">
     </MenuItem>
-    <MenuItem Text="Report" Clicked="OnMenuItemClicked">
+    <MenuItem Text="Create Report" Clicked="OnMenuItemClicked">
     </MenuItem>
     
 

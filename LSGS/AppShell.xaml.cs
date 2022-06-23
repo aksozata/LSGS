@@ -51,7 +51,7 @@ namespace LSGS
                         Shell.Current.FlyoutIsPresented = false;
                     }
                     break;
-                case "Report":
+                case "Create Report":
                     {
                         await Navigation.PushAsync(new ReportPage());
                         Shell.Current.FlyoutIsPresented = false;
