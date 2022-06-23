@@ -88,11 +88,12 @@ namespace LSGS.Views
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters
             var command = Globals.connection.CreateCommand();
-            command.CommandText = $"SELECT * FROM User Where METU_ID in (SELECT Friend From Friends Where (User = {Globals.profile.METU_ID} and isAccepted=1)) UNION SELECT * FROM User Where METU_ID in (SELECT User From Friends Where(Friend = {Globals.profile.METU_ID} and isAccepted = 1)); ";
+            command.CommandText = $"SELECT * FROM User Where METU_ID in (SELECT Friend From Friends Where (User = {Globals.profile.METU_ID} and isAccepted=1)) " +
+                $"UNION SELECT * FROM User Where METU_ID in (SELECT User From Friends Where(Friend = {Globals.profile.METU_ID} and isAccepted = 1)); ";
             try
             {
                 var reader = await command.ExecuteReaderAsync();
-                if (reader.Read())
+                while (reader.Read())
                 {
                     var Name = reader.GetString("First_Name");
                     var Surname = reader.GetString("Surname");

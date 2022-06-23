@@ -33,9 +33,9 @@ namespace LSGS.Views
             await Navigation.PushAsync(new FriendsListPage());
         }
 
-        private void StudyGroups_Button_Clicked(object sender, EventArgs e)
+        private async void StudyGroups_Button_Clicked(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new MyStudyGroups());
         }
         private async void RecommendedBooks_Button_Clicked(object sender, EventArgs e)
         {

@@ -102,20 +102,24 @@ namespace LSGS.Views
                 command.CommandText = $@"SELECT * FROM StudyGroup";
             }
             command.CommandText += ";";
-
-            // execute the command and read the results
-            var reader = await command.ExecuteReaderAsync();
-
-            while (reader.Read())
+            try
             {
-                var Name = reader.GetString("Name");
-                var Category = reader.GetString("Category");
-                var Description = reader.GetString("Description");
-                var Owner = reader.GetInt32("OwnerID");
-                var each_group = new Group(Name, Category, Description, Owner);
-                search_result_list.Add(each_group);
+                // execute the command and read the results
+                var reader = await command.ExecuteReaderAsync();
+
+                while (reader.Read())
+                {
+                    var Name = reader.GetString("Name");
+                    var Category = reader.GetString("Category");
+                    var Description = reader.GetString("Description");
+                    var Owner = reader.GetInt32("OwnerID");
+                    var GroupId = reader.GetInt32("ID");
+                    var each_group = new Group(Name, Category, Description, GroupId, Owner);
+                    search_result_list.Add(each_group);
+                }
             }
-            Globals.connection.Close();
+            catch { }
+            finally { Globals.connection.Close(); }            
             searchResults = search_result_list;
             await Navigation.PushAsync(new GroupSearchResultsPage());
         }

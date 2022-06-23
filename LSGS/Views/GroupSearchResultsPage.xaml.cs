@@ -22,9 +22,10 @@ namespace LSGS.Views
             BindingContext = this;
         }
 
-        private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            MyStudyGroups.SelectedGroup = e.CurrentSelection[0] as Group;
+            await Navigation.PushAsync(new StudyGroupPage());
         }
     }
 }

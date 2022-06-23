@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LSGS.Views.StudyGroupPage"
+             Title="{Binding Name}">
+    <ContentPage.Content>
+        <ScrollView Orientation="Vertical">
+            <Grid x:Name="mainGrid" ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*" Padding="{x:OnPlatform Android='10,10,10,10'}">
+                <Label Text="Subject: " FontAttributes="Bold" Grid.Row="2" Grid.Column="0" FontSize="14" HeightRequest="40"/>
+                <Label Text="{Binding Category}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" FontSize="14" HeightRequest="40"/>
+                <Label Text="Description: " FontAttributes="Bold" Grid.Row="3" Grid.Column="0" FontSize="14" HeightRequest="40"/>
+                <Label Text="{Binding Description}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" FontSize="14" HorizontalOptions="StartAndExpand"/>
+                <Label Text="Owner: " FontAttributes="Bold" Grid.Row="5" Grid.Column="0" FontSize="14" HeightRequest="40"/>
+                <Label Text="{Binding OwnerName}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"  FontSize="14" HeightRequest="40"/>
+                <Button x:Name="JoinLeaveButton" Text="Join" FontAttributes="Bold" BackgroundColor="CadetBlue" Grid.Column="1" Grid.Row="6" Clicked="JoinLeaveButton_Clicked"/>
+                <Label Text="Participants" FontAttributes="Bold"  FontSize="16" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="6" VerticalOptions="Center"/>
+                <CollectionView x:Name="participants" ItemsSource="{Binding ParticipantList}" SelectionMode="Single" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="7" VerticalOptions="FillAndExpand" SelectionChanged="participants_SelectionChanged">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" RowDefinitions="Auto, *" ColumnDefinitions="Auto, *">
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontAttributes="Bold" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Surname}" HorizontalOptions="Start" FontAttributes="Bold"/>
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Email}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
