@@ -12,9 +12,11 @@ namespace LSGS.ViewModels
     {
         public Command ReportCommand { get; }
         public string description { get; set; }
-        public ReportViewModel()
+        ReportPage ReportPage;
+        public ReportViewModel(ReportPage reportPage)
         {
             ReportCommand = new Command(OnReportClicked);
+            ReportPage = reportPage;
         }
         private async void OnReportClicked(object obj)
         {
@@ -49,6 +51,7 @@ namespace LSGS.ViewModels
             }
             finally
             {
+                ReportPage.GoBack();
                 Globals.connection.Close();
             }
         }

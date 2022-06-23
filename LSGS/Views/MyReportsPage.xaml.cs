@@ -7,25 +7,26 @@ using LSGS.ViewModels;
 using LSGS.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Collections.ObjectModel;
 
 namespace LSGS.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MyReportsPage : ContentPage
     {
-        public IList<Report> ReportList { get; set; }
-        public static List<Report> search_result_list = new List<Report>();
+        public ObservableCollection<Report> ReportList { get; set; }
+        public static ObservableCollection<Report> search_result_list = new ObservableCollection<Report>();
 
         public MyReportsPage()
         {
             InitializeComponent();
             GetReports();
-            BindingContext = ReportList;
+            reportCollection.ItemsSource = ReportList;
         }
 
         private async void GetReports()
         {
-            List<Report> temp_result_list = new List<Report>();
+            ReportList = new ObservableCollection<Report>();
             if (Globals.connection.State != System.Data.ConnectionState.Open)
                 Globals.connection.Open();
             // create a DB command and set the SQL statement with parameters
@@ -35,23 +36,19 @@ namespace LSGS.Views
             try
             {
                 var reader = await command.ExecuteReaderAsync();
-
-                    while (reader.Read())
-                    {
-                        var Error_ID = reader.GetInt32("Error_ID");
-                        var METU_ID = reader.GetInt32("Owner_ID");
-                        var Description = reader.GetString("Description");
-                        var Status = reader.GetString("Status");
-                        var each_report = new Report(Error_ID, METU_ID, Description, Status);
-                        temp_result_list.Add(each_report);
-                    }
-                    search_result_list = temp_result_list;
-                    ReportList = search_result_list;
-                Globals.connection.Close();
+                while (reader.Read())
+                {
+                    var Error_ID = reader.GetInt32("Error_ID");
+                    var METU_ID = reader.GetInt32("Owner_ID");
+                    var Description = reader.GetString("Description");
+                    var Status = reader.GetString("Status");
+                    var each_report = new Report(Error_ID, METU_ID, Description, Status);
+                    ReportList.Add(each_report);
+                }
             }
             catch(Exception ex)
             {
-                App.Current.MainPage.DisplayAlert("Error", "Friend request is not sent! ", "OK");
+                App.Current.MainPage.DisplayAlert("Error", "Loading reports failed! ", "OK");
             }
             finally { Globals.connection.Close(); }
         }       

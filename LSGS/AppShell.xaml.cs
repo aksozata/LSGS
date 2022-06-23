@@ -53,7 +53,7 @@ namespace LSGS
                     break;
                 case "Report":
                     {
-                        await Current.GoToAsync("ReportPage");
+                        await Navigation.PushAsync(new ReportPage());
                         Shell.Current.FlyoutIsPresented = false;
                     }
                     break;

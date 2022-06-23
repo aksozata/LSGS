@@ -17,7 +17,12 @@ namespace LSGS.Views
         public ReportPage()
         {
             InitializeComponent();
-            this.BindingContext = new ReportViewModel();
+            this.BindingContext = new ReportViewModel(this);
+        }
+
+        public async void GoBack()
+        {
+            await Navigation.PopAsync();
         }
     }
 }
