@@ -13,10 +13,13 @@ namespace LSGS.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
+
+        public static ProfilePage Current;
         public ProfilePage()
         {
             InitializeComponent();
             BindingContext = Globals.profile;
+            Current = this;
         }
 
         private async void Books_Button_Clicked(object sender, EventArgs e)
@@ -42,6 +45,14 @@ namespace LSGS.Views
         private async void PendingRequests_Button_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new PendingRequestsPage());
+        }
+        private async void MyReports_Button_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MyReportsPage());
+        }
+        private async void UpdateDesc_Button_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new UpdateDescriptionPage());
         }
     }
 }

@@ -35,8 +35,8 @@ namespace LSGS.ViewModels
             var command = Globals.connection.CreateCommand();
 
             command.CommandText =
-                $@"INSERT INTO Report (`Error_ID`, `Owner_ID`, `Description`) 
-                  VALUES(null, '{Globals.profile.METU_ID}', '{description}');";
+                $@"INSERT INTO Report (`Error_ID`, `Owner_ID`, `Description`, `Status`) 
+                  VALUES(null, '{Globals.profile.METU_ID}', '{description}', 'Open');";
 
             try
             {

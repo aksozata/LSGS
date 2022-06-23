@@ -17,6 +17,7 @@ namespace LSGS
             Routing.RegisterRoute(nameof(ReportPage), typeof(ReportPage));
             Routing.RegisterRoute(nameof(PendingRequestsPage), typeof(PendingRequestsPage));
             Routing.RegisterRoute(nameof(SearchCreateGroupPage), typeof(SearchCreateGroupPage));
+            Routing.RegisterRoute(nameof(MyReportsPage), typeof(MyReportsPage));
 
         }
 

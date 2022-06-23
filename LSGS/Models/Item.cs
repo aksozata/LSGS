@@ -56,6 +56,24 @@ namespace LSGS.Models
 
     }
 
+    public class Report
+    {
+        public int Error_ID { get; set; }
+        public int Owner_ID { get; set; }
+        public string Description { get; set; }
+        public string Status { get; set; }
+        public Report()
+        {
+        }
+        public Report(int Error_ID, int Owner_ID, string Description, string Status)
+        {
+            this.Error_ID = Error_ID;
+            this.Owner_ID = Owner_ID;
+            this.Description = Description;
+            this.Status = Status;
+        }
+
+    }
     public class Book
     {
         public Book(string name, string author, string publisher, string publishYear, string serialNo)

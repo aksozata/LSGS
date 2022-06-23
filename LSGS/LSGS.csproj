@@ -24,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\MyReportsPage.xaml.cs">
+      <DependentUpon>MyReportsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\UpdateDescriptionPage.xaml.cs">
+      <DependentUpon>UpdateDescriptionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\SearchCreateGroupPage.xaml.cs">
       <DependentUpon>SearchCreateGroupPage.xaml</DependentUpon>
     </Compile>
