@@ -13,15 +13,18 @@ namespace LSGS
         {
             InitializeComponent();
             string trial = "deneme";
-            DependencyService.Register<MockDataStore>();
-            MainPage = new LoginPage();
-            
+            DependencyService.Register<MockDataStore>(); 
+            MainPage = new AppShell();
+            loginn();
         }
 
         protected override void OnStart()
         {
         }
-
+        public async void loginn()
+        {
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+        }
         protected override void OnSleep()
         {
         }
